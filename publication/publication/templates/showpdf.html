@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container">
+    <table:class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Doi</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <br>
+        <tbody>
+            {% for p in pdfs %}
+            <tr>
+                <td>{{ p.title }}</td>
+                <td>{{ p.doi }}</td>
+                <td>
+                    <a href="{{ p.pdf.url }}" target="_blank">
+                        Download PDF
+                    </a>
+                </td>
+            </tr><br>
+            {% endfor %}
+        </tbody>
+
+    </table>
+<br><br>
+    <a href="{% url 'upload_publication' %}" name="upload_publication">Upload Publication</a>
+    <br><br><br>
+    {% if request.user.is_superuser %}
+    <button><a href="{% url 'adminfeatures' %}">Admin Features</a></button>
+    {% elif request.user.is_authenticated %}
+    <button><a href="{% url 'userfeatures' %}">User features</a></button>
+    {% endif %}
+    </div>
+{% endblock %}
