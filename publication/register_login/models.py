@@ -13,5 +13,5 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-    class Meta:
-        db_table = 'registration'
+    # class Meta:
+    #     db_table = 'registration'
