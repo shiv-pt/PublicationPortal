@@ -31,6 +31,7 @@ urlpatterns = [
     path('logout/', register_views.userLogout, name="logout"),
     path('adminfeatures/', views.adminfeatures, name="adminfeatures"),
     path('userfeatures/', views.userfeatures, name="userfeatures"),
+    path('paperdetails/(?P<paperid>[-a-zA-Z0-9_]+)$', views.paperdetails, name="paperdetails"),
     
     
 ]
