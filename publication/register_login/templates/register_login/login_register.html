@@ -3,6 +3,87 @@
 {% block content %}
 
 {% if page == 'login' %}
+
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form method="post" action="/register/">
+            {% csrf_token %}
+            <h1>Create Account</h1>
+            <input type="text" name="username" placeholder="Username"/>
+            <input type="email" name="email" placeholder="email" />
+            <input type="password" name="password" placeholder="Password" />
+            <button class="login-button" type="Submit" value="Signup">Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form method="post" action="/login/">
+            {% csrf_token %}
+            <h1>Sign in</h1>
+            <input type="text" name="username" placeholder="Username" />
+            <input type="password" name="password" placeholder="Password" />
+            <button class="login-button" type="Submit" value="Login">Sign In</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To upload your own publications. Sign In</p>
+                <button class="login-button ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Sir</h1>
+                <p>Enter your personal details and start publishing your papers here.</p>
+                <button class="login-button ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+{% if page == 'register' %}
+
+<div class="container right-panel-active" id="container">
+    <div class="form-container sign-up-container">
+        <form method="post" action="/register/">
+            {% csrf_token %}
+            <h1>Create Account</h1>
+            <input type="text" name="username" placeholder="Username" />
+            <input type="email" name="email" placeholder="email" />
+            <input type="password" name="password" placeholder="Password" />
+            <button class="login-button" type="Submit" value="Signup">Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form method="post" action="/login/">
+            {% csrf_token %}
+            <h1>Sign in</h1>
+            <input type="text" name="username" placeholder="Username" />
+            <input type="password" name="password" placeholder="Password" />
+            <button class="login-button" type="Submit" value="Login">Sign In</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To upload your own publications. Sign In</p>
+                <button class="login-button ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Sir</h1>
+                <p>Enter your personal details and start publishing your papers here.</p>
+                <button class="login-button ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+
+<!-- {% if page == 'login' %}
 <div>
     <form method="post" action="">
         {% csrf_token %}
@@ -37,8 +118,10 @@
 
         <input type="Submit" value="Signup" />
     </form>
-</div>
+</div> -->
 
-{% endif %}
+
+
+<!-- {% endif %} -->
 
 {% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from upload_publication.models import Papers
 from django.core.files.storage import FileSystemStorage
@@ -9,9 +9,15 @@ def showpdf(request):
     return render(request, 'showpdf.html', {'pdfs': pdfs})
 
 def userfeatures(request):
+    if request.user.is_authenticated == False:
+        return redirect('/login/')
     return render(request, 'userfeatures.html')
 
 
 def adminfeatures(request):
+    if request.user.is_authenticated == False:
+        return redirect('/login/')
     return render(request, 'adminfeatures.html')
+
+
 

@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class="container">
+<div class="pdfcontainer">
     <table:class="table">
         <thead>
             <tr>
@@ -26,7 +26,7 @@
         </tbody>
 
     </table>
-<br><br>
+    <br><br>
     <a href="{% url 'upload_publication' %}" name="upload_publication">Upload Publication</a>
     <br><br><br>
     {% if request.user.is_superuser %}
@@ -34,5 +34,5 @@
     {% elif request.user.is_authenticated %}
     <button><a href="{% url 'userfeatures' %}">User features</a></button>
     {% endif %}
-    </div>
+</div>
 {% endblock %}

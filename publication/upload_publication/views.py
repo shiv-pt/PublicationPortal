@@ -4,7 +4,8 @@ from upload_publication.models import Papers
 from django.core.files.storage import FileSystemStorage
 
 def upload(request):
-    
+    if request.user.is_authenticated==False:
+        return redirect('/login/')
     if request.method=='POST':
         
         if request.POST.get('title') and request.POST.get('doi') and request.FILES['pdf']:

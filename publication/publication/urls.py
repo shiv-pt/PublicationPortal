@@ -31,7 +31,7 @@ urlpatterns = [
     path('logout/', register_views.userLogout, name="logout"),
     path('adminfeatures/', views.adminfeatures, name="adminfeatures"),
     path('userfeatures/', views.userfeatures, name="userfeatures"),
-    
+    path('publisher_details/', register_views.publisher_details, name="publisher_details"),
     
 ]
 

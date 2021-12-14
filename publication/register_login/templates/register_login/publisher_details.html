@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form action="/publisher_details/" method="post">
+    {% csrf_token %}
+    SAP ID: <input type="text" name="sap_id" ><br>
+    DEPARTMENT: <input type="text" name="department" ><br>
+    FIRST NAME: <input type="text" name="first_name" ><br>
+    MIDDLE NAME: <input type="text" name="middle_name" ><br>
+    LAST NAME: <input type="text" name="last_name" ><br>
+    PHONE NUMBER: <input type="text" name="phone_number" ><br>
+    <label for="">ROLE</label>
+    <select name="role">
+        <option value="Teacher">Teacher</option>
+        <option value="Student">Student</option>
+    </select>
+    DATE OF JOINING: <input type="date" name="date_of_joining" ><br>
+    EMAIL: <input type="email" name="email" ><br>
+    <input type="submit" value="">Submit</input>
+</form>
+
+{% endblock content %}
