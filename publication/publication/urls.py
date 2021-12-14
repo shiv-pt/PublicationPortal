@@ -32,6 +32,7 @@ urlpatterns = [
     path('adminfeatures/', views.adminfeatures, name="adminfeatures"),
     path('userfeatures/', views.userfeatures, name="userfeatures"),
     path('publisher_details/', register_views.publisher_details, name="publisher_details"),
+    path('paperdetails/(?P<paperid>[-a-zA-Z0-9_]+)$', views.paperdetails, name="paperdetails"),
     
 ]
 

@@ -21,3 +21,9 @@ def adminfeatures(request):
 
 
 
+
+def paperdetails(request, paperid):
+    paper = Papers.objects.get(title = paperid)
+    return render(request, 'paperdetails.html',{'paper':paper})
+
+
