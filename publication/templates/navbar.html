@@ -1,8 +1,8 @@
 
         <header class="headerWarp" role="banner" style="width: 100%;">
-            <div class="brandInner" style="width: 100%;">
+            <div class="brandInner" style="width: 100%; margin:0px">
                 <div class="logo">
-                    <a href="/" title="Home" rel="home" class="site-logo"><img style="height: 7rem;width: 7rem;"
+                    <a href="/" title="Home" rel="home" class="site-logo"><img style="height: 7rem;vwidth: 9rem;"
                             src="https://scontent.fblr4-3.fna.fbcdn.net/v/t1.6435-9/87503689_111002383835295_3256861726187978752_n.png?_nc_cat=108&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=joJoEuK2r7UAX-K5KK3&_nc_ht=scontent.fblr4-3.fna&oh=acac6bab4aed6333fb3268f1823145e0&oe=61D6BA2C" alt="Home" /></a>
                 </div>
                 <div class="brandName">
@@ -21,38 +21,102 @@
                     </div>
                 </div>
             </div>
-                <div>
-                
-                    <div
-                        style="display:inline-flex; float: right; padding: 15px; background-color:#27447E;width: 100%; margin-bottom: 20px;">
-                        <div style="padding-left:5px; padding-right: 10px;">
-                            {% if request.user.is_superuser %}
-                            <h3 style="color: white; font-size: 1.5rem; margin: 0;">Welcome Admin</h3>
-                        </div>
-                        <div style=" padding-left:5px; padding-right: 10px;position: absolute; right: 2%;"><a href="{% url 'logout' %}"
-                                style="color: white; font-size: 1.5rem;">Logout</a></div>
-                
-                        {% elif request.user.is_authenticated %}
-                        <h3 style="color: white; font-size: 1.5rem; margin: 0;">Welcome {{request.user.username}}</h3>
+        </header>
+            <!--<div>    
+                <div
+                    style="display:inline-flex; float: right; padding: 15px; background-color:#27447E;width: 100%; margin-bottom: 20px;">
+                    <div style="padding-left:5px; padding-right: 10px;">
+                        {% if request.user.is_superuser %}
+                        <h3 style="color: white; font-size: 1.5rem; margin: 0;">Welcome Admin</h3>
                     </div>
                     <div style=" padding-left:5px; padding-right: 10px;position: absolute; right: 2%;"><a href="{% url 'logout' %}"
-                            style="color: white; font-size: 1.5rem;">Logout</a></div>
-                
-                
-                
-                    {% else %}
-                    <div style="height: 1.7rem;">
-                        <div
-                            style="display:inline-flex; float: right; background-color:#27447E;width: 100%;position: absolute; left: 85%;">
-                            <div style="padding-left:5px; padding-right: 10px;"><a href="{% url 'login' %}"
-                                    style="color: white; font-size: 1.5rem;">Login</a></div>
-                            <div style="padding-left:5px; padding-right: 10px;"><a href="{% url 'register' %}"
-                                    style="color: white;font-size: 1.5rem;">Register</a></div>
-                        </div>
-                    </div>
-                    {% endif %}
+                            style="color: white; font-size: 1.5rem;">Logout</a></div>    
+                    {% elif request.user.is_authenticated %}
+                     <h3 style="color: white; font-size: 1.5rem; margin: 0;">Welcome {{request.user.username}}</h3>
                 </div>
-
-        </header>
+                <div style=" padding-left:5px; padding-right: 10px;position: absolute; right: 2%;"><a href="{% url 'logout' %}"
+                        style="color: white; font-size: 1.5rem;">Logout</a></div>    
+    
+            
+                {% else %}
+                <div style="height: 1.7rem;">
+                    <div
+                        style="display:inline-flex; float: right; background-color:#27447E;width: 100%;position: absolute; left: 85%;">
+                        <div style="padding-left:5px; padding-right: 10px;"><a href="{% url 'login' %}"
+                                style="color: white; font-size: 1.5rem;">Login</a></div>
+                        <div style="padding-left:5px; padding-right: 10px;"><a href="{% url 'register' %}"
+                                style="color: white;font-size: 1.5rem;">Register</a></div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>      -->
+    <div style="background-color:#27447E">
+        <nav class="navbar navbar-dark">
+            <div>
+            {% if request.user.is_superuser %}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="color:white;">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Welcome admin</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="{% url 'PapersReport' %}">Papers Report</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+                </ul>
+            </div>
+            {% elif request.user.is_authenticated %}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="color:white;">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Welcome {{request.user.username}}</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="color:white;">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Welcome to Publication Portal</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                    <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                </ul>
+            </div>
+            {% endif %}
+            </div>
+        </nav>  
+    </div> 
 
 

@@ -15,7 +15,7 @@ class Publisher(models.Model):
     SAP_ID = models.CharField(max_length=100, primary_key=True)
     DEPARTMENT = models.CharField(max_length=100)
     FIRST_NAME = models.CharField(max_length=100)
-    MIDDLE_NAME = models.CharField(max_length=100,blank=True)
+    MIDDLE_NAME = models.CharField(max_length=100,blank=True,default=None)
     LAST_NAME = models.CharField(max_length=100)
     PHONE_NUMBER = models.IntegerField()
     ROLE = models.CharField(max_length=100)
@@ -54,7 +54,7 @@ class Issue(models.Model):
         db_table = 'ISSUE'
 
 class Area_of_interest(models.Model):
-    id=models.AutoField(primary_key=True);
+    id=models.AutoField(primary_key=True)
     SAP_ID = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     INTEREST=models.CharField(max_length=70)
 
