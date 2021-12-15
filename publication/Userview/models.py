@@ -15,7 +15,7 @@ class Publisher(models.Model):
     SAP_ID = models.CharField(max_length=100, primary_key=True)
     DEPARTMENT = models.CharField(max_length=100)
     FIRST_NAME = models.CharField(max_length=100)
-    MIDDLE_NAME = models.CharField(max_length=100,blank=True)
+    MIDDLE_NAME = models.CharField(max_length=100,blank=True,null=True)
     LAST_NAME = models.CharField(max_length=100)
     PHONE_NUMBER = models.IntegerField()
     ROLE = models.CharField(max_length=100)

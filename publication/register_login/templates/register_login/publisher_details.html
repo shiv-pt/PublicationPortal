@@ -1,23 +1,60 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
+<div class="container">
+    <h2>Publisher Details</h2>
 <form action="/publisher_details/" method="post">
     {% csrf_token %}
-    SAP ID: <input type="text" name="sap_id" ><br>
-    DEPARTMENT: <input type="text" name="department" ><br>
-    FIRST NAME: <input type="text" name="first_name" ><br>
+    SAP ID: <input readonly type="text" name="sap_id" value="{{ cred.username }}"><br>
+    PASSWORD: <input readonly type="password" name="password" value="{{ cred.password }}"><br>
+    EMAIL: <input readonly type="email" name="email" value="{{ cred.email }}"><br>
+    DEPARTMENT: <input required type="text" name="department" ><br>
+    <label for="">TITLE:</label>
+    <select name="title">
+        <option value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Dr">Dr</option>
+        <option value="Prof">Prof</option>
+        <option value="As. Prof">Assistant Prof</option>
+    FIRST NAME: <input required type="text" name="first_name" value="{{ cred.first_name }}"><br>
     MIDDLE NAME: <input type="text" name="middle_name" ><br>
-    LAST NAME: <input type="text" name="last_name" ><br>
-    PHONE NUMBER: <input type="text" name="phone_number" ><br>
+    LAST NAME: <input required type="text" name="last_name" value="{{ cred.last_name }}" ><br>
+    PHONE NUMBER: <input required type="number" name="phone_number" ><br>
     <label for="">ROLE</label>
-    <select name="role">
+    <select required name="role">
         <option value="Teacher">Teacher</option>
         <option value="Student">Student</option>
-    </select>
-    DATE OF JOINING: <input type="date" name="date_of_joining" ><br>
-    EMAIL: <input type="email" name="email" ><br>
-    <input type="submit" value="">Submit</input>
+    </select><br>
+    DATE OF JOINING: <input required type="date" name="date_of_joining" ><br>
+
+    <label for="">AREA OF INTEREST:</label><BR></BR>
+    <div class="aoi">
+        <div>Click plus to add more</div>
+        <button type="button" name="button" onclick="newinput()">+</button>
+        <input type="text" name="aoi0" id="">
+    </div>
+<br>
+    SCOPUS_ID: <input type="text" name="scopus_id" ><br>
+    PUBLON_ID: <input type="text" name="publon_id" ><br>
+    H-INDEX: <input type="number" name="h_index" value="{{ cred.h_index }}" ><br>
+    I-INDEX: <input type="number" name="i_index" value="{{ cred.i_index }}"><br>
+    ORCHID-ID: <input type="text" name="orchid_id" ><br>
+    <button type="submit">Submit</button>
 </form>
+</div>
+<script>
+    var id = 1;
+        var newinput = function () {
+            var parent = document.body.getElementsByClassName("aoi")[0];
+            var field = document.createElement("input")
+            field.style = "display:block;"
+            field.id = "aoi" + id;
+            field.type = "text";
+            field.name = "aoi" + id;
+            parent.appendChild(field);
+            id += 1;
+        }
+</script>
 
 {% endblock content %}

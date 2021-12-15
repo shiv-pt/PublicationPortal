@@ -9,9 +9,11 @@
         <form method="post" action="/register/">
             {% csrf_token %}
             <h1>Create Account</h1>
-            <input type="text" name="username" placeholder="Username"/>
-            <input type="email" name="email" placeholder="email" />
+            <input type="number" name="username" placeholder="SAP ID"/>
             <input type="password" name="password" placeholder="Password" />
+            <input type="email" name="email" placeholder="Email" />
+            <input type="text" name="first_name" placeholder="First Name">
+            <input type="text" name="last_name" placeholder="Last Name">
             <button class="login-button" type="Submit" value="Signup">Sign Up</button>
         </form>
     </div>
@@ -48,10 +50,12 @@
     <div class="form-container sign-up-container">
         <form method="post" action="/register/">
             {% csrf_token %}
-            <h1>Create Account</h1>
-            <input type="text" name="username" placeholder="Username" />
-            <input type="email" name="email" placeholder="email" />
+            <h1>Create Account</h1> 
+            <input type="number" name="username" placeholder="SAP ID" />
             <input type="password" name="password" placeholder="Password" />
+            <input type="email" name="email" placeholder="Email" />
+            <input type="text" name="first_name" placeholder="First Name">
+            <input type="text" name="last_name" placeholder="Last Name">
             <button class="login-button" type="Submit" value="Signup">Sign Up</button>
         </form>
     </div>
