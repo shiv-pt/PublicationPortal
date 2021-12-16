@@ -20,8 +20,6 @@ def adminfeatures(request):
     return render(request, 'adminfeatures.html')
 
 
-
-
 def paperdetails(request, paperid):
     paper = Papers.objects.get(title = paperid)
     return render(request, 'paperdetails.html',{'paper':paper})
