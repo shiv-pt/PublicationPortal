@@ -8,19 +8,19 @@
     SAP ID: <input readonly type="text" name="sap_id" value="{{ cred.username }}"><br>
     PASSWORD: <input readonly type="password" name="password" value="{{ cred.password }}"><br>
     EMAIL: <input readonly type="email" name="email" value="{{ cred.email }}"><br>
-    DEPARTMENT: <input required type="text" name="department" ><br>
+    DEPARTMENT: <input required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" required type="text" name="department" ><br>
     <label for="">TITLE:</label>
-    <select name="title">
+    <select required name="title">
         <option value="Mr">Mr</option>
         <option value="Mrs">Mrs</option>
         <option value="Miss">Miss</option>
         <option value="Dr">Dr</option>
         <option value="Prof">Prof</option>
         <option value="As. Prof">Assistant Prof</option>
-    FIRST NAME: <input required type="text" name="first_name" value="{{ cred.first_name }}"><br>
-    MIDDLE NAME: <input type="text" name="middle_name" ><br>
-    LAST NAME: <input required type="text" name="last_name" value="{{ cred.last_name }}" ><br>
-    PHONE NUMBER: <input required type="number" name="phone_number" ><br>
+    FIRST NAME: <input readonly required type="text" name="first_name" value="{{ cred.first_name }}"><br>
+    MIDDLE NAME: <input pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="middle_name" ><br>
+    LAST NAME: <input readonly required type="text" name="last_name" value="{{ cred.last_name }}" ><br>
+    PHONE NUMBER: <input pattern="[6789][0-9]{9}" required type="text" name="phone_number" ><br>
     <label for="">ROLE</label>
     <select required name="role">
         <option value="Teacher">Teacher</option>

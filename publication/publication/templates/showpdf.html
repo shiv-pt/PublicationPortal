@@ -34,7 +34,7 @@
     {% if request.user.is_superuser %}
     <button><a href="{% url 'adminfeatures' %}">Admin Features</a></button>
     {% elif request.user.is_authenticated %}
-    <button><a href="{% url 'userfeatures' %}">User features</a></button>
+    <button style="background-color: #27447E"><a class = "wh" href="{% url 'userfeatures' %}" >User features</a></button>
     {% endif %}
 </div>
 {% endblock %}
