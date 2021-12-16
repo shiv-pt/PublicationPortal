@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from upload_publication.models import Papers
+from django.views.generic import TemplateView
 
 from django.http import FileResponse
 import io
@@ -7,6 +8,14 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
 # Create your views here.
+
+class chartView(TemplateView):
+    template_name = "chart/charts.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = Papers.objects.raw('SELECT ISSN, paper_id, PUB_YEAR, COUNT(PUB_YEAR) CNT FROM REFERENCE GROUP BY PUB_YEAR')
+        return context
+
 def papersreport(request):
     buf = io.BytesIO()
     c = canvas.Canvas(buf,pagesize=letter, bottomup=0)

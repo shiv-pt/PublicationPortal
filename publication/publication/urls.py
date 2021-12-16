@@ -35,6 +35,7 @@ urlpatterns = [
     path('publisher_details/', register_views.publisher_details, name="publisher_details"),
     path('paperdetails/(?P<paperid>[-a-zA-Z0-9_]+)$', views.paperdetails, name="paperdetails"),
     path('PapersReport/', admin_views.papersreport, name="PapersReport"),
+    path('chart',admin_views.chartView.as_view(), name="chartView")
     
 ]
 

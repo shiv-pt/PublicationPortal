@@ -4,7 +4,7 @@ from django.db import models
 class Papers(models.Model):
     paper_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    doi = models.CharField(max_length=100)
+    doi = models.CharField(max_length=100, blank=True)
     pdf = models.FileField(upload_to='papers/pdfs/',blank=True)
     class Meta:
         db_table = 'paper'

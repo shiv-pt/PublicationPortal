@@ -47,6 +47,16 @@
     <script src="https://rvce.edu.in/sites/default/files/js/js_7RpT7dqoZmp9TAUr25KEhsD3cTPtZtoo0COg95oTT4A.js"></script>
     <script>jQuery.extend(Drupal.settings, { "basePath": "\/", "pathPrefix": "", "colorbox": { "opacity": "0.85", "current": "{current} of {total}", "previous": "\u00ab Prev", "next": "Next \u00bb", "close": "Close", "maxWidth": "%", "maxHeight": "100%", "fixed": true, "mobiledetect": true, "mobiledevicewidth": "480px" }, "jcarousel": { "ajaxPath": "\/jcarousel\/ajax\/views" }, "jquerymenu": { "hover": 1, "animate": 1, "edit_link": 1, "click_to_expand": 0 }, "quicktabs": { "qt_notifications": { "name": "notifications", "tabs": [{ "bid": "block_delta_2", "hide_title": 1 }, { "bid": "block_delta_4", "hide_title": 1 }], "jquerymenu": { "hover": 1, "animate": 1, "edit_link": 1, "click_to_expand": 0 } } } });</script>
 
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -61,6 +71,7 @@
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
     
 
     
@@ -69,6 +80,9 @@
 <body class="html not-front not-logged-in page-node page-node- page-node-1274 node-type-page section-rvce-departments">
     <div class="whole">
     {% include 'navbar.html' %}
+    {% block scripts %}
+
+    {% endblock %}
     {% block content %}
 
     {% endblock %}

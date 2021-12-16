@@ -16,7 +16,7 @@ class Publisher(models.Model):
     DEPARTMENT = models.CharField(max_length=100)
     FIRST_NAME = models.CharField(max_length=100)
     MIDDLE_NAME = models.CharField(max_length=100,blank=True,default=None)
-    LAST_NAME = models.CharField(max_length=100)
+    LAST_NAME = models.CharField(max_length=100,blank=True,default=None)
     PHONE_NUMBER = models.CharField(max_length=10)
     ROLE = models.CharField(max_length=100)
     DATE_OF_JOINING = models.DateField()
