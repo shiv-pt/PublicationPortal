@@ -16,9 +16,12 @@
 }
 
 .login-span:hover{
-    background-color:#4d77ca ;
     color: black;
 }
 .heading:hover{
     color: rgb(218, 216, 216)
+}
+
+.navbar-toggle .icon-bar{
+    background-color: white;
 }
