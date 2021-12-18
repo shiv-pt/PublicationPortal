@@ -22,6 +22,7 @@ from . import views;
 from upload_publication import views as upload_views
 from register_login import views as register_views
 from Adminview import views as admin_views
+from Userview import views as user_views
 urlpatterns = [
     path('', views.showpdf),
     path('admin/',admin.site.urls),
@@ -35,8 +36,10 @@ urlpatterns = [
     path('publisher_details/', register_views.publisher_details, name="publisher_details"),
     path('paperdetails/(?P<paperid>[-a-zA-Z0-9_]+)$', views.paperdetails, name="paperdetails"),
     path('PapersReport/', admin_views.papersreport, name="PapersReport"),
-    path('chart/',admin_views.chartView.as_view(), name="chartView")
-    
+
+    path('chart',admin_views.chartView.as_view(), name="chartView"),
+    path('yourPub',user_views.yourPub, name="yourPub"),
+    path('profile',user_views.profile, name="profile")
 ]
 
 if settings.DEBUG:
