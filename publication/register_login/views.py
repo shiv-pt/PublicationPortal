@@ -56,6 +56,46 @@ def userLogin(request):
     page = 'login'
     return render(request, 'register_login/login_register.html', {'page': page})
 
+def webscrapPubDetails(first_name,last_name):
+    linkbeg = "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C33&q="
+    name = first_name + " " + last_name
+    name = name+" rvce"+"&btnG="
+    name = name.replace(' ', '+')
+
+    link = linkbeg+name
+
+    res = requests.get(link)
+    soup = bs4.BeautifulSoup(res.text, 'lxml')
+
+    info = soup.find_all("h4", attrs={"class": "gs_rt2"})
+
+    ref = []
+    name = []
+    h_index=''
+    i_index=''
+
+    for i in info:
+        if i.find('a'):
+            ref.append(i.find('a')['href'])
+            name.append(i.find('a').text)
+
+    if len(ref) != 0:
+        profilelink = "https://scholar.google.com"+ref[0]
+        profileaccess = requests.get(profilelink)
+        beautisoup = bs4.BeautifulSoup(profileaccess.text, "lxml")
+
+        citinfo = beautisoup.find_all("td", attrs={"class": "gsc_rsb_std"})
+        h_index = citinfo[2].text
+        i_index = citinfo[4].text
+
+    # linkforpub = "https://www.google.com/search?q="+first_name+"+"+last_name+"+rvce+irins+profile"
+    # print(linkforpub)
+    # res2=requests.get(linkforpub)
+    # soup2=bs4.BeautifulSoup(res2.text,'lxml')
+    # # print(soup2)
+    # info2 = soup2.find_all("div", attrs={"class": "kCrYT"})
+    # print(info2)
+    return h_index,i_index
 
 def userRegister(request):
     if request.user.is_authenticated:
@@ -66,42 +106,10 @@ def userRegister(request):
         password = request.POST['password']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
-        h_index=''
-        i_index=''
         # CODE FOR WEB SCRAPPING
 
-        linkbeg = "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C33&q="
-        name = first_name + " " + last_name
-        name = name+" rvce"+"&btnG="
-        name = name.replace(' ', '+')
+        h_index,i_index=webscrapPubDetails(first_name,last_name)
 
-        link = linkbeg+name
-
-        res = requests.get(link)
-        soup = bs4.BeautifulSoup(res.text, 'lxml')
-
-        info = soup.find_all("h4", attrs={"class": "gs_rt2"})
-
-        ref = []
-        name = []
-
-
-        for i in info:
-            if i.find('a'):
-                ref.append(i.find('a')['href'])
-                name.append(i.find('a').text)
-
-        if len(ref) != 0:
-            profilelink = "https://scholar.google.com"+ref[0]
-            profileaccess = requests.get(profilelink)
-            beautisoup = bs4.BeautifulSoup(profileaccess.text, "lxml")
-
-            citinfo = beautisoup.find_all("td", attrs={"class": "gsc_rsb_std"})
-            h_index= citinfo[2].text
-            i_index= citinfo[4].text
-
-        else:
-            print("Data Not Found")
 
         # CODE FOR WEB SCRAPPING ENDS
 
