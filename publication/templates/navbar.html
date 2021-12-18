@@ -40,8 +40,15 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="login-span" href="/">Home</a></li>
                     <li><a class="login-span" href="{% url 'PapersReport' %}">Papers Report</a></li>
-                    <li><a class="login-span" href="#">Page 2</a></li>
-                    <li><a class="login-span" href="#">Page 3</a></li>
+                    <li><a class="login-span" href="#">Address issues</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle login-span" data-toggle="dropdown" href="#">Edit Controls
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a class="login-span" href="#">Manage Profiles</a></li>
+                              <li><a class="login-span" href="#">Database Control</a></li>
+                            </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="login-span" href="{% url 'logout' %}"><span class="glyphicon glyphicon-user login-span"></span> Logout</a></li>
@@ -60,9 +67,17 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="login-span" href="/">Home</a></li>
-                    <li><a class="login-span" href="#">Page 1</a></li>
-                    <li><a class="login-span" href="#">Page 2</a></li>
-                    <li><a class="login-span" href="#">Page 3</a></li>
+                    <li><a class="login-span" href="{% url 'upload_publication' %}">Upload</a></li>
+                    <li><a class="login-span" href="{% url 'yourPub' %}">Your Publications</a></li>
+                    <li><a class="login-span" href="{% url 'profile' %}">Profile</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle login-span" data-toggle="dropdown" href="#">Tickets
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a class="login-span" href="#">Raise Ticket</a></li>
+                              <li><a class="login-span" href="#">Ticket Status</a></li>
+                            </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="login-span" href="{% url 'logout' %}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
@@ -76,14 +91,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a  class="navbar-brand heading">Welcome to Publication Portal</a>
+                <a  class="navbar-brand heading">Publication Portal</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="login-span" href="/">Home</a></li>
-                    <li><a class="login-span" href="#">Page 1</a></li>
-                    <li><a class="login-span" href="#">Page 2</a></li>
-                    <li><a class="login-span" href="#">Page 3</a></li>
+                    <li><a class="login-span" href="{% url 'upload_publication' %}">Upload</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="login-span" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span> Login</a></li>

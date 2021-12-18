@@ -1,40 +1,31 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class="pdfcontainer">
-    <table:class="table">
+<div class="container pdfcontainer">
+    <table class="table">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Doi</th>
-                <th>Download</th>
+                <th>Details</th>
             </tr>
         </thead>
-        <br>
         <tbody>
             {% for p in pdfs %}
             <tr>
                 <td>{{ p.title }}</td>
                 <td>{{ p.doi }}</td>
-                <td>
-                    <a href="{{ p.pdf.url }}" target="_blank">
-                        Download PDF
-                    </a>
-                </td>
                 <td><a href="{% url 'paperdetails' p.title %}" name="paperdetails">Paper details</a>
                 </td>
-            </tr><br>
+            </tr>
             {% endfor %}
         </tbody>
 
     </table>
-    <br><br>
-    <a href="{% url 'upload_publication' %}" name="upload_publication">Upload Publication</a>
-    <br><br><br>
-    {% if request.user.is_superuser %}
+    <!--{% if request.user.is_superuser %}
     <button><a href="{% url 'adminfeatures' %}">Admin Features</a></button>
     {% elif request.user.is_authenticated %}
     <button style="background-color: #27447E"><a class = "wh" href="{% url 'userfeatures' %}" >User features</a></button>
-    {% endif %}
+    {% endif %}-->
 </div>
 {% endblock %}
