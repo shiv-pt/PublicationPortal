@@ -6,6 +6,7 @@ from django.core.files.storage import FileSystemStorage
 
 def showpdf(request):
     pdfs = Papers.objects.all()
+    print(type(pdfs))
     return render(request, 'showpdf.html', {'pdfs': pdfs})
 
 def userfeatures(request):

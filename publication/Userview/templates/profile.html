@@ -3,18 +3,18 @@
 {% block content %}
 <div class="container">
     
-    <h1>{{ details.SAP_ID }}{{details.middle_name}}{{details.last_name}}</h1>
-    <p>SAP ID: {{ details.FIRST_NAME }}</p>
-    <p>Department: {{details.first_name}}</p>
-    <p>Role: {{details.first_name}}</p>
-    <p>Phone no: {{details.first_name}}</p>
-    <p>Email: {{details.first_name}}</p>
-    <p>Experience: {{details.first_name}}</p>
-    <p>Scopus ID: {{details.first_name}}</p>
-    <p>Publon ID: {{details.first_name}}</p>
-    <p>H-Index: {{details.first_name}}</p>
-    <p>i10-Index: {{details.first_name}}</p>
-    <p>Orchid ID: {{details.first_name}}</p>
+    <h1>{{ details.FIRST_NAME }} {{ details.MIDDLE_NAME }} {{ details.LAST_NAME }}</h1>
+    <p>SAP ID:   {{ details.SAP_ID }}</p>
+    <p>Department:   {{ details.DEPARTMENT }}</p>
+    <p>Role:   {{ details.ROLE }}</p>
+    <p>Phone no:   {{ details.PHONE_NUMBER }}</p>
+    <p>Email:   {{ details.EMAIL }}</p>
+    <p>Experience:   {{ details.DATE_OF_JOINING }} years</p>
+    <p>Scopus ID:   {{ details.SCOPUS_ID }}</p>
+    <p>Publon ID:   {{ details.PUBLON_ID }}</p>
+    <p>H-Index:   {{ details.H_INDEX }}</p>
+    <p>i10-Index:   {{ details.I_INDEX }}</p>
+    <p>Orchid ID:   {{ details.ORCHID }}</p>
 <br><br>
     
 {% endblock %}
