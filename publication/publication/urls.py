@@ -40,15 +40,6 @@ urlpatterns = [
     path('paperdetails/(?P<paperid>[-a-zA-Z0-9_]+)$', views.paperdetails, name="paperdetails"),
     path('PapersReport/', admin_views.papersreport, name="PapersReport"),
     path('paper_references/', upload_views.paper_references,name="paper_references"),
-    path('chart',admin_views.chartView.as_view(), name="chartView"),
-    path('yourPub',user_views.yourPub, name="yourPub"),
-    path('profile',user_views.profile, name="profile"),
-
-    # template_name = 'register_login/reset_password.html'
-    # template_name = 'register_login/reset_password_sent.html'
-    # template_name = 'register_login/reset_password_confirm.html'
-    # template_name = 'register_login/reset_password_complete.html'
-
     path('reset_password/', auth_views.PasswordResetView.as_view(
         template_name='register_login/reset_password.html'), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(
@@ -57,7 +48,12 @@ urlpatterns = [
         template_name='register_login/password_reset_confirm.html'), name="password_reset_confirm"),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(
         template_name='register_login/password_reset_complete.html'), name="password_reset_complete"),
-    
+
+
+    path('chartView/',admin_views.chartView.as_view(), name="chartView"),
+    path('yourPub/',user_views.yourPub, name="yourPub"),
+    path('profile/',user_views.profile, name="profile")
+
 ]
 
 if settings.DEBUG:

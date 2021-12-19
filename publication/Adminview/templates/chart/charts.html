@@ -42,5 +42,41 @@ $(document).ready(function(){
 </script>
 {% endblock %}
 {% block content %}
-<canvas id="myChart" width="400" height="150"></canvas>
+<div class="container-fluid">
+    <a href="{% url 'PapersReport' %}" class="btn btn-default" role="button">Download Report</a>
+<div class="row">
+    <div class="col-sm-5">
+        <h2 style="text-align: center">Yearwise count of publications</h2>
+        <br/>
+        <canvas id="myChart" width="200" height="50"></canvas>
+    </div>
+    <h2 style="text-align: center">Yearwise details of publications</h2>
+    <br/>
+    <div class="col-sm-7">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Name</th>
+                    <th>Scopus</th>
+                    <th>Web of Science</th>
+                    <th>DOI</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in data %}
+                <tr>
+                    <td>{{ p.PUB_YEAR }}</td>
+                    <td>{{ p.NAME }}</td>
+                    <td>{{ p.SCOPUS_INDEX }}</td>
+                    <td>{{ p.WEB_OF_SCIENCE }}</td>
+                    <td>{{ p.doi }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    
+        </table>
+    </div>
+</div>
+</div>
 {% endblock %}
