@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>All your pending issues:</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Issue ID</th>
+                <th>Issue Category</th>
+                <th>Issue Description</th>
+                <th>Issue Status</th>
+                <th>Issue Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td>{{ issue.ISSUEP_ID }}</td>
+                <td>{{ issue.CATEGORY }}</td>
+                <td>{{ issue.DESC }}</td>
+                <td>{{ issue.ISSUE_STATUS }}</td>
+                <td>{{ issue.TIME_S }}</td>
+                <td>
+                    <a href="{% url 'issue_delete' issue.ISSUEP_ID %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</div>
+
+{% endblock %}

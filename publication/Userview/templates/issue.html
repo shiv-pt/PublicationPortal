@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+<h1>Submit your issues below:</h1>
+<form action="/issue/" method="POST">
+    {% csrf_token %}
+    <label for="">ISSUE CATEGORY</label>
+    <select name="CATEGORY" >
+         <option value="Paper related">Paper related</option>
+         <option value="Profile related">Profile related</option>
+         <option value="Others">Others</option>
+    </select>
+    <br>
+    <br>
+    ISSUE DESCRIPTION: <textarea name="DESC" cols="70" rows="10"></textarea>
+    <br>
+    <button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+{% endblock %}

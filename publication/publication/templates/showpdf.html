@@ -17,7 +17,7 @@
             {% for p in pdfs %}
             <tr>
                 <td>{{ p.title }}</td>
-                <td>{{ p.doi }}</td>
+                <td style=" max-width: 25rem; overflow:hidden;">{{ p.doi }}</td>
                 <td><a href="{% url 'paperdetails' p.title %}" name="paperdetails">Paper details</a>
                 </td>
                 {% if request.user.is_authenticated %}

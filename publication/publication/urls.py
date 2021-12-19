@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.urls import include,path
 from django.conf import settings
 from django.conf.urls.static import static
+
+
+from Userview.models import Issue
 from . import views;
 from upload_publication import views as upload_views
 from register_login import views as register_views
@@ -49,11 +52,14 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(
         template_name='register_login/password_reset_complete.html'), name="password_reset_complete"),
 
-
     path('chartView/',admin_views.chartView.as_view(), name="chartView"),
     path('yourPub/',user_views.yourPub, name="yourPub"),
-    path('profile/',user_views.profile, name="profile")
-
+    path('profile/',user_views.profile, name="profile"),
+    path('issue/', user_views.issue, name="issue"),
+    path('issuestatus/',user_views.issuestatus, name="issuestatus"),
+    path('issue_delete/<int:id>/', user_views.issue_delete, name="issue_delete"),
+    path('issue_delete/', user_views.issue_delete, name="issue_delete"),
+    
 ]
 
 if settings.DEBUG:

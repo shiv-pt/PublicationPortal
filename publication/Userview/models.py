@@ -1,10 +1,10 @@
 
 from django.db import models
-from django.db.models.fields import DateTimeCheckMixin
+
 from django.http.request import split_domain_port
 
 from upload_publication.models import Papers
-
+from django.utils.timezone import now
 
 
 # Create your models here.
@@ -39,15 +39,14 @@ class Pub_Details(models.Model):
     class Meta:
         db_table = 'PUB_DETAILS'
 
-# Pub_Detail=Pub_Details(SCOPUS_ID='FSD',PUBLON_ID='FSD',H_INDEX=0,I_INDEX=0,ORCHID='GD',publisher=Publisher.objects.get(pk=123))
 
 class Issue(models.Model):
     ISSUEP_ID = models.AutoField(primary_key=True)
     CATEGORY = models.CharField(max_length=20)
     DESC = models.CharField(max_length=150)
-    RESPONSE = models.CharField(max_length=60)
-    ISSUE_STATUS = models.CharField(max_length=20)
-    TIME_S= models.DateTimeField()
+    RESPONSE = models.CharField(max_length=60,blank=True)
+    ISSUE_STATUS = models.CharField(max_length=20,blank=True)
+    TIME_S = models.DateTimeField(default=now, blank=True)
     PUB_ID = models.ForeignKey(Publisher, on_delete=models.CASCADE)
 
     class Meta:
