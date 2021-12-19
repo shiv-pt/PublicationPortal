@@ -23,6 +23,7 @@ class Reference(models.Model):
     PUB_TYPE = models.CharField(max_length=15)
     SCOPUS_INDEX= models.CharField(max_length=50,blank=True, null=True,default='N/A')
     WEB_OF_SCIENCE = models.CharField(max_length=50,blank=True, null=True,default='N/A')
+    RANKING=models.CharField(max_length=50,blank=True, null=True,default='N/A')
     NAME = models.CharField(max_length=50)
     paper=models.OneToOneField(Papers,on_delete=models.CASCADE,default=None)
 
@@ -31,9 +32,7 @@ class Reference(models.Model):
 
 class Authors(models.Model):
     PAPER_ID = models.ForeignKey(Papers, on_delete=models.CASCADE)
-    F_NAME=models.CharField(max_length=15)
-    M_NAME=models.CharField(max_length=15,blank=True)
-    L_NAME=models.CharField(max_length=15,blank=True)
+    A_NAME=models.CharField(max_length=50,default='N/A')
 
     class Meta:
         db_table = 'AUTHORS'

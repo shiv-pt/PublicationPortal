@@ -5,13 +5,10 @@
 <div class="container">
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    Paper Title: <input type="text" name="title" id=""><br>
-    DOI: <input type="text" name="doi" id=""><br>
-    PDF: <input type="file" name="pdf" id="" accept="application/pdf" style="cursor:pointer;"><br>
-    <input type="submit" value="Upload PDF">
+    Paper Title: <input require type="text" name="title" id=""><br>
+    DOI: <input required type="text" name="doi" id=""><br>
+    <button type="submit">Next</button>
 </form>
-
-<a href="{% url 'showpdf' %}">Show PDFs</a>
 </div>
     
-    {% endblock %}
+{% endblock %}

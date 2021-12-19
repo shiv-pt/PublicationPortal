@@ -140,24 +140,7 @@ def publisher_details(request):
         orchid_id = request.POST['orchid_id']
         password = request.POST['password']
         username=sap_id
-        # print(sap_id)
-        # print(department)
-        # print(first_name)
-        # print(middle_name)
-        # print(last_name)
-        # print(phone_number)
-        # print(role)
-        # print(date_of_joining)
-        # print(email)
-        # print(scopus_id)
-        # print(publon_id)
-        # print(h_index)
-        # print(i_index)
-        # print(orchid_id)
-        # print(email)
-        # print(username)
-        # print(password)
-        # print(request.POST)
+        
         s='aoi0'
         prev=''
         num=0
