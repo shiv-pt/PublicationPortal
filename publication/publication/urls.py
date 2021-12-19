@@ -37,9 +37,9 @@ urlpatterns = [
     path('paperdetails/(?P<paperid>[-a-zA-Z0-9_]+)$', views.paperdetails, name="paperdetails"),
     path('PapersReport/', admin_views.papersreport, name="PapersReport"),
 
-    path('chart',admin_views.chartView.as_view(), name="chartView"),
-    path('yourPub',user_views.yourPub, name="yourPub"),
-    path('profile',user_views.profile, name="profile")
+    path('chartView/',admin_views.chartView.as_view(), name="chartView"),
+    path('yourPub/',user_views.yourPub, name="yourPub"),
+    path('profile/',user_views.profile, name="profile")
 ]
 
 if settings.DEBUG:

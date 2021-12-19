@@ -7,6 +7,8 @@ import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 # Create your views here.
 
 class chartView(TemplateView):
@@ -14,32 +16,36 @@ class chartView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = Papers.objects.raw('SELECT ISSN, paper_id, PUB_YEAR, COUNT(PUB_YEAR) CNT FROM REFERENCE GROUP BY PUB_YEAR')
+        context["data"] = Papers.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
         return context
 
 def papersreport(request):
     buf = io.BytesIO()
-    c = canvas.Canvas(buf,pagesize=letter, bottomup=0)
+    c = canvas.Canvas(buf,pagesize=letter)
     textob = c.beginText()
     textob.setTextOrigin(inch,inch)
     textob.setFont("Helvetica",14)
+    textob.textLine("All uploaded papers")
     pdfs = Papers.objects.all()
-    lines1 = [
-        "This is line 1",
-        "This is line 2",
-        "This is line 3"
-    ]
     lines = []
+    header = ['Paper ID','Paper Name','DOI','Paper Location']
+    lines.append(header)
     for pdf in pdfs:
-        lines.append(str(pdf.paper_id))
-        lines.append(pdf.title)
-        lines.append(pdf.doi)
-        lines.append(str(pdf.pdf))
-        lines.append(" ")
-    for line in lines:
-        textob.textLine(line)
-    c.drawText(textob)
+        line = []
+        line.append(str(pdf.paper_id))
+        line.append(pdf.title)
+        line.append(pdf.doi)
+        line.append(str(pdf.pdf))
+        lines.append(line)
+    f = Table(lines)
+    f.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.gray),
+                             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                             ('ALIGN',(0,0),(-1,-1),'CENTER'),
+                             ('FONTSIZE',(0,0),(-1,0),14),
+                             ('BOTTOMPADDING',(0,0),(-1,0),12)]))
+    f.wrapOn(c,10, 10)
+    f.drawOn(c, 50, 650)
     c.showPage()
     c.save()
     buf.seek(0)
     return FileResponse(buf, as_attachment=True, filename='PapersReport.pdf')
-    #return render(request, 'showpdf.html', {'pdfs': pdfs})

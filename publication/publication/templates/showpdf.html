@@ -8,6 +8,9 @@
                 <th>Title</th>
                 <th>Doi</th>
                 <th>Details</th>
+                {% if request.user.is_authenticated %}
+                <th>Save</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -17,6 +20,9 @@
                 <td>{{ p.doi }}</td>
                 <td><a href="{% url 'paperdetails' p.title %}" name="paperdetails">Paper details</a>
                 </td>
+                {% if request.user.is_authenticated %}
+                <td><button class="btn"><i class="fa fa-bookmark-o"></i></button></td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
