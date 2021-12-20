@@ -46,4 +46,7 @@ def issue_delete(request,id):
     print(id)
     issue=Issue.objects.get(ISSUEP_ID=id)
     issue.delete()
-    return redirect("/issuestatus")
+    if(request.user.username=="admin"):
+        return redirect("/addressissues")
+    else:
+        return redirect("/issuestatus")

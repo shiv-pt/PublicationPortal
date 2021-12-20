@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>All your pending issues:</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Issue ID</th>
+                <th>Issue Category</th>
+                <th>Issue Description</th>
+                <th>Issue Status</th>
+                <th>Issue Date</th>
+                <th>Action</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td>{{ issue.ISSUEP_ID }}</td>
+                <td>{{ issue.CATEGORY }}</td>
+                <td>{{ issue.DESC }}</td>
+                <td>{{ issue.ISSUE_STATUS }}</td>
+                <td>{{ issue.TIME_S }}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Change Status<span>
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="{% url 'issue_status' issue.ISSUEP_ID 'Working' %}">Working</a></li>
+                          <li><a href="{% url 'issue_status' issue.ISSUEP_ID 'Rectified' %}">Rectified</a></li>
+                          <li><a href="{% url 'issue_status' issue.ISSUEP_ID 'Insolvable' %}">Insolvable</a></li>
+                        </ul>
+                      </div>
+                </td>
+                <td>
+                    <a href="{% url 'issue_delete' issue.ISSUEP_ID %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</div>
+
+{% endblock %}

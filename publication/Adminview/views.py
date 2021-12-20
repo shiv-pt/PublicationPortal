@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from upload_publication.models import Papers
 from django.views.generic import TemplateView
-
+from Userview.models import Issue
 from django.http import FileResponse
 import io
 from reportlab.pdfgen import canvas
@@ -10,6 +10,16 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 # Create your views here.
+
+
+def issue_status(request,id,act):
+    print(id,act)
+    obj = Issue.objects.filter(ISSUEP_ID = id).update(ISSUE_STATUS=act)
+    return redirect('/addressissues')
+    
+def address_issues(request):
+    issues = Issue.objects.all()
+    return render(request, 'address.html', {'issues': issues})
 
 class chartView(TemplateView):
     template_name = "chart/charts.html"

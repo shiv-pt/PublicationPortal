@@ -18,7 +18,7 @@
             <tr>
                 <td>{{ p.title }}</td>
                 <td style=" max-width: 25rem; overflow:hidden;">{{ p.doi }}</td>
-                <td><a href="{% url 'paperdetails' p.title %}" name="paperdetails">Paper details</a>
+                <td><a href="{% url 'paperdetails' p.paper_id %}" name="paperdetails">Paper details</a>
                 </td>
                 {% if request.user.is_authenticated %}
                 <td><button class="btn"><i class="fa fa-bookmark-o"></i></button></td>

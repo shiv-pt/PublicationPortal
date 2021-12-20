@@ -40,7 +40,7 @@ urlpatterns = [
     path('adminfeatures/', views.adminfeatures, name="adminfeatures"),
     path('userfeatures/', views.userfeatures, name="userfeatures"),
     path('publisher_details/', register_views.publisher_details, name="publisher_details"),
-    path('paperdetails/(?P<paperid>[-a-zA-Z0-9_]+)$', views.paperdetails, name="paperdetails"),
+    path('paperdetails/<int:paperid>', views.paperdetails, name="paperdetails"),
     path('PapersReport/', admin_views.papersreport, name="PapersReport"),
     path('paper_references/', upload_views.paper_references,name="paper_references"),
     path('reset_password/', auth_views.PasswordResetView.as_view(
@@ -59,7 +59,8 @@ urlpatterns = [
     path('issuestatus/',user_views.issuestatus, name="issuestatus"),
     path('issue_delete/<int:id>/', user_views.issue_delete, name="issue_delete"),
     path('issue_delete/', user_views.issue_delete, name="issue_delete"),
-    
+    path('addressissues/', admin_views.address_issues, name="addressissues"),
+    path('issue_status/<int:id>/<str:act>/', admin_views.issue_status, name="issue_status"),
 ]
 
 if settings.DEBUG:

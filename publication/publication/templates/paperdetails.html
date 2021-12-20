@@ -1,22 +1,22 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<div class="container">
-    <h1>Title of the paper: {{paper.title}}</h1>
-    <h2>Authors: {{paper.title}}</h3>
-    <p>Publication type: {{paper.title}}</p>
-    <p>Level: {{paper.title}}</p>
-    <p>Name: {{paper.title}}</p>
-    <p>ISSN type: {{paper.title}}</p>
-    <p>ISSN: {{paper.title}}</p>
-    <p>Month: {{paper.title}}</p>
-    <p>Year: {{paper.title}}</p>
-    <p>Scopus Index: {{paper.title}}</p>
-    <p>Web of science: {{paper.title}}</p>
-    <p>Page no: {{paper.title}}</p>
-    <p>Volume: {{paper.title}}</p>
-    <p>Issue: {{paper.title}}</p>
-    <p>DOI: {{paper.title}}</p>
+<div class="container" style="padding:30px">
+    <h1>Title of the paper: {{ paper.title }}</h1>
+    <h2>Authors: {{ paper.A_NAME }}</h3>
+    <p>Publication type: {{ paper.PUB_TYPE }}</p>
+    <p>Level: {{ paper.LVL }}</p>
+    <p>Name: {{ paper.NAME }}</p>
+    <p>ISSN type: {{ paper.ISSN_TYPE }}</p>
+    <p>ISSN: {{ paper.ISSN }}</p>
+    <p>Month: {{ paper.MONTH }}</p>
+    <p>Year: {{ paper.PUB_YEAR }}</p>
+    <p>Scopus Index: {{ paper.SCOPUS_INDEX }}</p>
+    <p>Web of science: {{ paper.WEB_OF_SCIENCE }}</p>
+    <p>Page no: {{ paper.PGNO }}</p>
+    <p>Volume: {{ paper.VOL }}</p>
+    <p>Issue: {{ paper.ISSUE }}</p>
+    <p>DOI: {{ paper.doi }}</p>
     <a href="{{ paper.pdf.url }}" target="_blank">Download PDF</a>
 
 <br><br>
