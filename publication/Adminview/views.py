@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from upload_publication.models import Papers
+from Userview.models import Issue
 from django.views.generic import TemplateView
 from Userview.models import Issue
 from django.http import FileResponse
@@ -10,6 +11,10 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 # Create your views here.
+
+def customReport(request):
+    data = Papers.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
+    return render(request, 'customreport.html', {"data": data})
 
 
 def issue_status(request,id,act):
@@ -27,6 +32,7 @@ class chartView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["qs"] = Papers.objects.raw('SELECT ISSN, paper_id, PUB_YEAR, COUNT(PUB_YEAR) CNT FROM REFERENCE GROUP BY PUB_YEAR')
         context["data"] = Papers.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
+        context["is"] = Issue.objects.raw('SELECT ISSUEP_ID, ISSUE_STATUS, COUNT(ISSUE_STATUS) CNT FROM issue GROUP BY ISSUE_STATUS')
         return context
 
 def papersreport(request):

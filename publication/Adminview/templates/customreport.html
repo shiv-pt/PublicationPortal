@@ -1,0 +1,66 @@
+{% extends 'main.html' %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+    
+    
+    slider.oninput = function() {
+      output.innerHTML = this.value;
+    }
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h2 style="padding: 10px;">Publisher Details</h2>
+        <form action="/publisher_details/" method="post">
+            {% csrf_token %}
+        <label for="year">Year:</label>
+        <input type="range" min="2015" max="2021" value="2018" class="slider" id="myRange">
+        <p>Value: 2015 to <span id="demo"></span></p>
+        <label for="filter">Filter:</label>
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+        <label class="form-check-label" for="inlineCheckbox1">Scopus Indexed</label>
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+        <label class="form-check-label" for="inlineCheckbox1">DOI</label>
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+        <label class="form-check-label" for="inlineCheckbox1">WOS</label>
+        </form>
+        <hr/>
+    </div>
+    <div id="query" class="row">
+        
+        <h2 style="text-align: center">Yearwise details of publications</h2>
+        <br/>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Name</th>
+                    <th>Scopus</th>
+                    <th>Web of Science</th>
+                    <th>DOI</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in data %}
+                <tr>
+                    <td>{{ p.PUB_YEAR }}</td>
+                    <td>{{ p.NAME }}</td>
+                    <td>{{ p.SCOPUS_INDEX }}</td>
+                    <td>{{ p.WEB_OF_SCIENCE }}</td>
+                    <td>{{ p.doi }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    
+        </table>
+    </div>
+</div>
+{% endblock %}
