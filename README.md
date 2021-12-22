@@ -10,3 +10,4 @@ Useful commands:
 6. python manage.py migrate
 7. pip install mysqlclient
 8. pip install reportlab
+9. pip install lxml
