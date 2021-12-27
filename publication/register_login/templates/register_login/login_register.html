@@ -4,17 +4,18 @@
 
 {% if page == 'login' %}
 
+
 <div class="container" id="container">
     <div class="form-container sign-up-container">
         <form method="post" action="/register/">
             {% csrf_token %}
             <h3>Create Account</h3>
-            <input minlength="10" maxlength="10" type="number" name="username" placeholder="SAP ID"/>
+            <input pattern="[1][0-9]{9}" type="text" name="username" placeholder="SAP ID"/>
             <input type="password" name="password" placeholder="Password" />
             <input type="email" name="email" placeholder="Email" />
             <input required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="first_name" placeholder="First Name">
             <input required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="last_name" placeholder="Last Name">
-            <button class="login-button" type="Submit" value="Signup">Sign Up</button>
+            <button class="login-button" type="Submit" value="Signup">Sign Up</button>  <br>
         </form>
     </div>
     <div class="form-container sign-in-container">
@@ -26,8 +27,11 @@
             <a href="{% url 'reset_password' %}">Forgot your password?</a><br>
             <button class="login-button" type="Submit" value="Login">Sign In</button>
             <br>
-            
+            {% if msg %}
+            <p class="alert alert-danger">{{msg.msg}}</p>
+            {% endif %}
         </form>
+        
     </div>
     <div class="overlay-container">
         <div class="overlay">
@@ -54,12 +58,15 @@
         <form method="post" action="/register/">
             {% csrf_token %}
             <h3>Create Account</h3> 
-            <input pattern="[0-9]{10}" type="text" name="username" placeholder="SAP ID" />
+            <input pattern="[1][0-9]{9}" type="text" name="username" placeholder="SAP ID" />
             <input type="password" name="password" placeholder="Password" />
             <input type="email" name="email" placeholder="Email" />
             <input required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="first_name" placeholder="First Name">
             <input required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="last_name" placeholder="Last Name">
-            <button class="login-button" type="Submit" value="Signup">Sign Up</button>
+            <button class="login-button" type="Submit" value="Signup">Sign Up</button><br>
+            {% if msg %}
+            <p class="alert alert-danger">{{msg.msg}}</p>
+            {% endif %}
         </form>
     </div>
     <div class="form-container sign-in-container">
@@ -70,6 +77,7 @@
             <input type="password" name="password" placeholder="Password" />
             <a href="{% url 'reset_password' %}">Forgot your password?</a><br>
             <button class="login-button" type="Submit" value="Login">Sign In</button>
+            <br>
         </form>
     </div>
     <div class="overlay-container">
@@ -88,48 +96,5 @@
     </div>
 </div>
 {% endif %}
-
-
-
-<!-- {% if page == 'login' %}
-<div>
-    <form method="post" action="">
-        {% csrf_token %}
-        <label for="username">Username</label>
-        <input type="text" name="username" placeholder="Username">
-
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password">
-
-        <input type="Submit" value="Login" />
-    </form>
-    <p>Havent Signed Up Yet ??</p>
-    <a href="{% url 'register' %}">Sign UP</a>
-</div>
-{% endif %}
-
-
-{%if page == 'register' %}
-<div>
-    <form method="post" action="">
-        {% csrf_token %}
-
-
-        <label for="username">Username</label>
-        <input type="text" name="username" placeholder="Username">
-
-        <label for="email">Email</label>
-        <input type="email" name="email" placeholder="email">
-
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password">
-
-        <input type="Submit" value="Signup" />
-    </form>
-</div> -->
-
-
-
-<!-- {% endif %} -->
 
 {% endblock content %}

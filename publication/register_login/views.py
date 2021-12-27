@@ -30,6 +30,7 @@ def userLogout(request):
 
 def userLogin(request):
     page = 'login'
+    print(page)
     if request.user.is_authenticated:
         return redirect('/')
     if request.method == 'POST':
@@ -41,12 +42,14 @@ def userLogin(request):
        
         if user_ob is None:
             msg={'msg':'User does not exist'}
-            return render(request, 'register_login/login_register.html', {'page': page,'msg': msg})
+            print(msg)
+            return render(request, 'register_login/login_register.html', {"page": page,"msg": msg})
 
         user = authenticate(username=username, password=password)
         print(user)
         if user is None:
             msg={'msg':'Invalid Credentials'}
+            print(msg)
             return render(request, 'register_login/login_register.html', {'page': page,'msg': msg})
        
         login(request, user)
@@ -95,6 +98,7 @@ def webscrapPubDetails(first_name,last_name):
     return h_index,i_index
 
 def userRegister(request):
+    page = 'register'
     if request.user.is_authenticated:
         return redirect('/')
     if request.method == 'POST':
@@ -103,17 +107,24 @@ def userRegister(request):
         password = request.POST['password']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
+
+        if User.objects.filter(email=email).first() is not None:
+            msg={'msg':'Email already exists'}
+            print(msg)
+            return render(request, 'register_login/login_register.html', {'msg': msg,'page': page})
+        elif User.objects.filter(username=username).first() is not None:
+            msg={'msg':'Username already exists'}
+            print(msg)
+            return render(request, 'register_login/login_register.html', {'msg': msg,'page': page})
+
         # CODE FOR WEB SCRAPPING
 
         h_index,i_index=webscrapPubDetails(first_name,last_name)
 
 
         # CODE FOR WEB SCRAPPING ENDS
-
-
         cred={'username':username,'email':email,'password':password,'first_name':first_name,'last_name':last_name,'h_index':h_index,'i_index':i_index}
         return render(request, 'register_login/publisher_details.html',{'cred':cred})
-    page = 'register'
     return render(request, 'register_login/login_register.html', {'page': page})
 
 
@@ -180,7 +191,8 @@ def publisher_details(request):
                 aoi_ob = Area_of_interest(SAP_ID=pub, INTEREST=request.POST[prev])
                 aoi_ob.save()
                 print(aoi_ob)
-                return redirect('/login/')
+                login(request, user_ob)
+                return redirect('/')
             except Exception as e:
                 print(e)
                 return redirect('/')
