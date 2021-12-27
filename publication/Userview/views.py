@@ -31,7 +31,7 @@ def issue(request):
         DESC=request.POST.get('DESC')
         pub=Publisher.objects.get(SAP_ID=userid)
         print(pub)
-        issue=Issue(CATEGORY=CATEGORY,DESC=DESC,RESPONSE='Pending',ISSUE_STATUS='Pending',PUB_ID=pub)
+        issue=Issue(CATEGORY=CATEGORY,DESC=DESC,ISSUE_STATUS='Pending',PUB_ID=pub)
         issue.save()
         return redirect("/issuestatus")
     
@@ -46,7 +46,4 @@ def issue_delete(request,id):
     print(id)
     issue=Issue.objects.get(ISSUEP_ID=id)
     issue.delete()
-    if(request.user.username=="admin"):
-        return redirect("/addressissues")
-    else:
-        return redirect("/issuestatus")
+    return redirect("/addressissues")

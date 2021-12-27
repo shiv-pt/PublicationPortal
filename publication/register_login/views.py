@@ -29,6 +29,7 @@ def userLogout(request):
 
 
 def userLogin(request):
+    page = 'login'
     if request.user.is_authenticated:
         return redirect('/')
     if request.method == 'POST':
@@ -39,21 +40,17 @@ def userLogin(request):
         print(user_ob)
        
         if user_ob is None:
-         
-            messages.add_message(request, messages.INFO, 'User not found')
-            return redirect('login')
+            msg={'msg':'User does not exist'}
+            return render(request, 'register_login/login_register.html', {'page': page,'msg': msg})
 
         user = authenticate(username=username, password=password)
         print(user)
         if user is None:
-           
-            messages.add_message(request, messages.INFO,
-                                 'Wrong creds')
-            return redirect('login')
+            msg={'msg':'Invalid Credentials'}
+            return render(request, 'register_login/login_register.html', {'page': page,'msg': msg})
        
         login(request, user)
         return redirect('/')
-    page = 'login'
     return render(request, 'register_login/login_register.html', {'page': page})
 
 def webscrapPubDetails(first_name,last_name):

@@ -16,7 +16,7 @@ class Publisher(models.Model):
     DEPARTMENT = models.CharField(max_length=100)
     FIRST_NAME = models.CharField(max_length=100)
     MIDDLE_NAME = models.CharField(max_length=100,blank=True,default=None)
-    LAST_NAME = models.CharField(max_length=100,blank=True,default=None)
+    LAST_NAME = models.CharField(max_length=100)
     PHONE_NUMBER = models.CharField(max_length=10)
     ROLE = models.CharField(max_length=100)
     DATE_OF_JOINING = models.DateField()
@@ -43,10 +43,9 @@ class Pub_Details(models.Model):
 class Issue(models.Model):
     ISSUEP_ID = models.AutoField(primary_key=True)
     CATEGORY = models.CharField(max_length=20)
-    DESC = models.CharField(max_length=150)
-    RESPONSE = models.CharField(max_length=60,blank=True)
+    DESC = models.CharField(max_length=250)
     ISSUE_STATUS = models.CharField(max_length=20,blank=True)
-    TIME_S = models.DateTimeField(default=now, blank=True)
+    TIME_S = models.DateTimeField(default=now, blank=True,null=True)
     PUB_ID = models.ForeignKey(Publisher, on_delete=models.CASCADE)
 
     class Meta:

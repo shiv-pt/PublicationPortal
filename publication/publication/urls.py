@@ -58,7 +58,6 @@ urlpatterns = [
     path('issue/', user_views.issue, name="issue"),
     path('issuestatus/',user_views.issuestatus, name="issuestatus"),
     path('issue_delete/<int:id>/', user_views.issue_delete, name="issue_delete"),
-    path('issue_delete/', user_views.issue_delete, name="issue_delete"),
     path('addressissues/', admin_views.address_issues, name="addressissues"),
     path('issue_status/<int:id>/<str:act>/', admin_views.issue_status, name="issue_status"),
     path('customReport/',admin_views.customReport, name="customReport"),

@@ -22,11 +22,11 @@ def adminfeatures(request):
 
 
 def paperdetails(request, paperid):
-    papers = Papers.objects.raw('SELECT * FROM PAPER P, REFERENCE R, authors A WHERE A.PAPER_ID_id = p.paper_id AND P.paper_id = R.paper_id AND P.paper_id=%s',[paperid])
+    papers = Papers.objects.raw('SELECT * FROM PAPER P, REFERENCE R, authors A WHERE A.PAPER_ID_id = P.paper_id AND P.paper_id = R.paper_id AND P.paper_id=%s',[paperid])
     if(len(papers)!=0):
         papers=papers[0]
         todays_date = date.today()
-        #papers.MONTH = todays_date.year-papers.MONTH.month
+        # papers.MONTH = todays_date.year-papers.MONTH
     return render(request, 'paperdetails.html', {'paper': papers})
 
 

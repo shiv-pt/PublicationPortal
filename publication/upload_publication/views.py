@@ -11,20 +11,8 @@ def upload(request):
         return redirect('/login/')
     if request.method=='POST':
         
-        if request.POST.get('title') and request.POST.get('doi'):
-            # userid=request.user.username
-            # savepaper=Papers()
-            # savepaper.title = request.POST.get('title')
-            # savepaper.doi = request.POST.get('doi')
-
-            paper={'title':request.POST.get('title'),'doi':request.POST.get('doi')}
-
-            # savepaper.pdf=request.FILES['pdf']
-
-            # savepaper.save()
-            # pub=Publisher.objects.get(pk=userid)
-            # pub.paper.add(savepaper)
-            return render(request, 'upload_publication/paper_references.html', {'paper': paper})
+        paper = {'title': request.POST.get('title'), 'doi': request.POST.get('doi')}
+        return render(request, 'upload_publication/paper_references.html', {'paper': paper})
     return render(request, 'upload_publication/upload.html')
     
 
@@ -33,27 +21,44 @@ def paper_references(request):
         userid=request.user.username
         savepaper=Papers()
         savepaper.title = request.POST.get('title')
-        savepaper.doi = request.POST.get('doi')
-        savepaper.pdf=request.FILES['pdf']
+        doi= request.POST.get('doi')
+        if doi=='':
+            savepaper.doi=None
+        else:
+            savepaper.doi=doi   
+        pdf=request.FILES['pdf']
+        if pdf=='':
+            savepaper.pdf=None
+        else:
+            savepaper.pdf=pdf     
         savepaper.save()
-
-
         ISSN=request.POST.get('ISSN')
         ISSUE=request.POST.get('ISSUE')
+        if ISSUE=='':
+            ISSUE=None
         MONTH=request.POST.get('MONTH')
         PUB_YEAR=request.POST.get('PUB_YEAR')
         PGNO=request.POST.get('PGNO')
+        if PGNO=='':
+            PGNO=None
         VOL=request.POST.get('VOL')
+        if VOL=='':
+            VOL=None
         LVL=request.POST.get('LVL')
         ISSN_TYPE=request.POST.get('ISSN_TYPE')
         PUB_TYPE=request.POST.get('PUB_TYPE')
         SCOPUS_INDEX=request.POST.get('SCOPUS_INDEX')
+        if(SCOPUS_INDEX==''):
+            SCOPUS_INDEX=None
         WEB_OF_SCIENCE=request.POST.get('WEB_OF_SCIENCE')
+        if(WEB_OF_SCIENCE==''):
+            WEB_OF_SCIENCE=None
         RANKING=request.POST.get('RANKING')
+        if(RANKING==''):
+            RANKING=None
         NAME=request.POST.get('NAME')
         pap_refer=Reference(ISSN=ISSN,ISSUE=ISSUE,MONTH=MONTH,PUB_YEAR=PUB_YEAR,PGNO=PGNO,VOL=VOL,LVL=LVL,ISSN_TYPE=ISSN_TYPE,PUB_TYPE=PUB_TYPE,SCOPUS_INDEX=SCOPUS_INDEX,WEB_OF_SCIENCE=WEB_OF_SCIENCE,RANKING=RANKING,NAME=NAME,paper=savepaper)
         pap_refer.save()
-        
         
         pub=Publisher.objects.get(pk=userid)
         pub.paper.add(savepaper)

@@ -1,3 +1,4 @@
+from datetime import date
 from django.shortcuts import redirect, render
 from upload_publication.models import Papers
 from Userview.models import Issue
@@ -13,6 +14,44 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 # Create your views here.
 
 def customReport(request):
+    if(request.method == 'POST'):
+        startdate=request.POST['startyear']
+        enddate=request.POST['endyear']
+        scopus=request.POST.get('scopus')
+        doi=request.POST.get('doi')
+        wos=request.POST.get('wos')
+        date={"startyear":startdate,"endyear":enddate}
+        if scopus and doi and wos:
+            data = Papers.objects.raw('SELECT * FROM paper P, reference R WHERE P.paper_id = R.paper_id AND P.doi IS NOT NULL AND R.SCOPUS_INDEX IS NOT NULL AND R.WEB_OF_SCIENCE IS NOT NULL AND R.PUB_YEAR>=%s AND R.PUB_YEAR<=%s',[startdate,enddate])
+            return render(request, 'customreport.html', {"data": data,"date":date})
+        elif scopus and doi:
+            data = Papers.objects.raw(
+                'SELECT * FROM paper P, reference R WHERE P.paper_id = R.paper_id AND P.doi IS NOT NULL AND R.SCOPUS_INDEX IS NOT NULL AND R.WEB_OF_SCIENCE IS NULL AND R.PUB_YEAR>=%s AND R.PUB_YEAR<=%s', [startdate, enddate])
+            return render(request, 'customreport.html', {"data": data, "date": date})
+        elif scopus and wos:
+            data = Papers.objects.raw(
+                'SELECT * FROM paper P, reference R WHERE P.paper_id = R.paper_id AND P.doi IS NULL AND R.SCOPUS_INDEX IS NOT NULL AND R.WEB_OF_SCIENCE IS NOT NULL AND R.PUB_YEAR>=%s AND R.PUB_YEAR<=%s', [startdate, enddate])
+            return render(request, 'customreport.html', {"data": data, "date": date})
+        elif doi and wos:
+            data = Papers.objects.raw(
+                'SELECT * FROM paper P, reference R WHERE P.paper_id = R.paper_id AND P.doi IS NOT NULL AND R.SCOPUS_INDEX IS NULL AND R.WEB_OF_SCIENCE IS NOT NULL AND R.PUB_YEAR>=%s AND R.PUB_YEAR<=%s', [startdate, enddate])
+            return render(request, 'customreport.html', {"data": data, "date": date})
+        elif scopus:
+            data = Papers.objects.raw(
+                'SELECT * FROM paper P, reference R WHERE P.paper_id = R.paper_id AND P.doi IS NULL AND R.SCOPUS_INDEX IS NOT NULL AND R.WEB_OF_SCIENCE IS NULL AND R.PUB_YEAR>=%s AND R.PUB_YEAR<=%s', [startdate, enddate])
+            return render(request, 'customreport.html', {"data": data, "date": date})
+        elif doi:
+            data = Papers.objects.raw(
+                'SELECT * FROM paper P, reference R WHERE P.paper_id = R.paper_id AND P.doi IS NOT NULL AND R.SCOPUS_INDEX IS NULL AND R.WEB_OF_SCIENCE IS NULL AND R.PUB_YEAR>=%s AND R.PUB_YEAR<=%s', [startdate, enddate])
+            return render(request, 'customreport.html', {"data": data, "date": date})
+        elif wos:
+            data = Papers.objects.raw(
+                'SELECT * FROM paper P, reference R WHERE P.paper_id = R.paper_id AND P.doi IS NULL AND R.SCOPUS_INDEX IS NULL AND R.WEB_OF_SCIENCE IS NOT NULL AND R.PUB_YEAR>=%s AND R.PUB_YEAR<=%s', [startdate, enddate])
+            return render(request, 'customreport.html', {"data": data, "date": date})
+        else:
+            data = Papers.objects.raw(
+                'SELECT * FROM paper P, reference R WHERE P.paper_id=R.paper_id AND P.doi IS NULL AND R.SCOPUS_INDEX IS NULL AND R.WEB_OF_SCIENCE IS NULL AND R.PUB_YEAR >= %s AND R.PUB_YEAR <= %s', [startdate, enddate])
+            return render(request, 'customreport.html', {"data": data, "date": date})
     data = Papers.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
     return render(request, 'customreport.html', {"data": data})
 
@@ -34,6 +73,8 @@ class chartView(TemplateView):
         context["data"] = Papers.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
         context["is"] = Issue.objects.raw('SELECT ISSUEP_ID, ISSUE_STATUS, COUNT(ISSUE_STATUS) CNT FROM issue GROUP BY ISSUE_STATUS')
         return context
+
+    
 
 def papersreport(request):
     buf = io.BytesIO()
@@ -61,7 +102,7 @@ def papersreport(request):
                              ('BOTTOMPADDING',(0,0),(-1,0),12)]))
     f.wrapOn(c,10, 10)
     f.drawOn(c, 50, 650)
-    c.showPage()
+    # c.showPage()
     c.save()
     buf.seek(0)
     return FileResponse(buf, as_attachment=True, filename='PapersReport.pdf')
