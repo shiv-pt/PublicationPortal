@@ -2,6 +2,11 @@
 
 {% block content %}
 <div class="container pdfcontainer">
+    {% if type == 'yourPub' %}
+    <h1>Your Publications</h1>
+    {% else %}
+    <h1>All Publications</h1>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>
@@ -25,6 +30,13 @@
                 {% endif %}
             </tr>
             {% endfor %}
+            
+            {% if pdfs|length == 0 %}
+            <td>
+                <h1 style="margin-left: 40%; margin-top: 30%;">No papers to display</h1>
+            </td>
+            {% endif %}
+
         </tbody>
 
     </table>

@@ -13,7 +13,7 @@ def yourPub(request):
     print(userid)
     pdfs = Papers.objects.raw("SELECT * FROM PUBLISHER P, PUBLISHER_PAPER Q, PAPER R WHERE P.SAP_ID = Q.PUBLISHER_ID AND Q.PAPERS_ID = R.PAPER_ID AND P.SAP_ID = %s",[userid])
     print(pdfs)
-    return render(request, 'showpdf.html', {'pdfs': pdfs})
+    return render(request, 'showpdf.html', {'pdfs': pdfs,'type':'yourPub'})
 
 def profile(request):
     userid = request.user.username

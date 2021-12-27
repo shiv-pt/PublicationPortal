@@ -21,7 +21,16 @@
                 <td>{{ issue.ISSUEP_ID }}</td>
                 <td>{{ issue.CATEGORY }}</td>
                 <td>{{ issue.DESC }}</td>
-                <td>{{ issue.ISSUE_STATUS }}</td>
+                {% if issue.ISSUE_STATUS == 'Pending' %}
+                <td><span class="btn btn-info">{{ issue.ISSUE_STATUS }}</span></td>
+                {% elif issue.ISSUE_STATUS == 'Working' %}
+                <td><span class="btn btn-warning">{{ issue.ISSUE_STATUS }}</span></td>
+                {% elif issue.ISSUE_STATUS == 'Rectified' %}
+                <td><span class="btn btn-success">{{ issue.ISSUE_STATUS }}</span></td>
+                {% else %}
+                <td><span class="btn btn-danger">{{ issue.ISSUE_STATUS }}</span></td>
+                {% endif %}
+
                 <td>{{ issue.TIME_S }}</td>
             </tr>
             {% endfor %}
