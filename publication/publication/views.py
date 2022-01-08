@@ -26,7 +26,8 @@ def paperdetails(request, paperid):
     author=''
     for i in range(0,len(papers)-1):
         author = author + papers[i].A_NAME + ', '
-    author = author + papers[len(papers)-1].A_NAME
+    if(len(papers)>0):
+        author = author + papers[len(papers)-1].A_NAME
     if(len(papers)!=0):
         papers=papers[0]
     papers.A_NAME = author

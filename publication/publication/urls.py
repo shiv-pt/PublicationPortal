@@ -61,6 +61,7 @@ urlpatterns = [
     path('addressissues/', admin_views.address_issues, name="addressissues"),
     path('issue_status/<int:id>/<str:act>/', admin_views.issue_status, name="issue_status"),
     path('customReport/',admin_views.customReport, name="customReport"),
+    path('customPDF/',admin_views.customPDF, name="customPDF"),
 ]
 
 if settings.DEBUG:
