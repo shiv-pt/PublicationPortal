@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from datetime import date
 
 def showpdf(request):
-    pdfs = Papers.objects.all()
+    pdfs = Papers.objects.raw('SELECT * FROM PAPER P, REFERENCE R WHERE P.paper_id = R.paper_id')
     return render(request, 'showpdf.html', {'pdfs': pdfs})
 
 def userfeatures(request):

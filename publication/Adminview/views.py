@@ -1,6 +1,7 @@
 from datetime import date
 from django.shortcuts import redirect, render
 from upload_publication.models import Papers, Reference
+from Userview.models import Publisher
 from Userview.models import Issue
 from django.views.generic import TemplateView
 from Userview.models import Issue
@@ -10,10 +11,30 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from django.db import connection
 from django.core import serializers
 # Create your views here.
+
+def customPub(request):
+    if(request.method=="POST"):
+        input = request.POST.get('publisher')
+        id = input[0:11]
+        print(id)
+        data = Papers.objects.raw(
+            'SELECT * FROM PUBLISHER P, publisher_paper Q, PAPER R, REFERENCE S WHERE P.SAP_ID=Q.publisher_id AND Q.papers_id=R.paper_id AND R.paper_id=S.paper_id AND P.SAP_ID=%s',[id])
+        data1 = Reference.objects.raw('SELECT * FROM PUBLISHER P, publisher_paper Q, PAPER R, REFERENCE S WHERE P.SAP_ID=Q.publisher_id AND Q.papers_id=R.paper_id AND R.paper_id=S.paper_id AND P.SAP_ID=%s',[id])
+        pub = Publisher.objects.all()
+        request.session['mycache'] = serializers.serialize('json', data)
+        request.session['mycache1'] = serializers.serialize('json', data1)
+        return render(request, 'custompub.html', {"pub": pub, "data": data})
+    pub = Publisher.objects.all()
+    data = Papers.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
+    data1 = Reference.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
+    request.session['mycache'] = serializers.serialize('json', data)
+    request.session['mycache1'] = serializers.serialize('json', data1)
+    return render(request, 'custompub.html', {"pub": pub, "data": data})
+
 
 def customPDF(request):
     print(request.session.get('mycache'))
@@ -22,11 +43,15 @@ def customPDF(request):
     print(data)
     buf = io.BytesIO()
     c = canvas.Canvas(buf,pagesize=letter)
+    c.setFont("Helvetica",25)
+    c.setTitle("Custom Report")
+    c.drawString(230,680,"Generated Report")
     textob = c.beginText()
     textob.setTextOrigin(inch,inch)
-    textob.setFont("Helvetica",14)
+    textob.setFont("Helvetica",10)
     textob.textLine("All uploaded papers")
     lines = []
+    c.drawImage("static/img/header.jpg",15,720, width = 650, height = 40)
     header = ['Title', 'DOI','Published in', 'Year','Month', 'Scopus', 'WOS']
     lines.append(header)
     for pdf in data:
@@ -37,28 +62,26 @@ def customPDF(request):
         for p in data1:
             print("p", p.object.paper_id)
             if(pdf.object.paper_id == p.object.paper_id):
-                line.append(p.object.PUB_TYPE +" - "+ p.object.NAME)
+                line.append(p.object.PUB_TYPE +" - \n "+ p.object.NAME)
                 line.append(p.object.PUB_YEAR)
                 line.append(p.object.MONTH)
                 line.append(p.object.SCOPUS_INDEX)
                 line.append(p.object.WEB_OF_SCIENCE)
         lines.append(line)
-    f = Table(lines)
+    f = Table(lines,colWidths=[150,40,150,35,55,50,50])
     f.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.gray),
                             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
                             ('ALIGN',(0,0),(-1,-1),'CENTER'),
                             ('FONTSIZE',(0,0),(-1,0),14),
                             ('BOTTOMPADDING',(0,0),(-1,0),12)]))
     f.wrapOn(c,10, 10)
-    f.drawOn(c, 50, 650)
+    f.drawOn(c, 50, 480)
     # c.showPage()
     c.save()
     buf.seek(0)
-    return FileResponse(buf, as_attachment=True, filename='PapersReport.pdf')
+    return FileResponse(buf, as_attachment=True, filename='CustomReport.pdf')
 
 def customReport(request):
-    print(request)
-    cursor = connection.cursor()
     if(request.method == 'POST'):
         startdate=request.POST['startyear']
         enddate=request.POST['endyear']
@@ -159,12 +182,16 @@ class chartView(TemplateView):
 def papersreport(request):
     buf = io.BytesIO()
     c = canvas.Canvas(buf,pagesize=letter)
+    c.setFont("Helvetica",25)
+    c.setTitle("All Papers")
+    c.drawString(230,680,"Generated Report")
     textob = c.beginText()
     textob.setTextOrigin(inch,inch)
     textob.setFont("Helvetica",14)
     textob.textLine("All uploaded papers")
     pdfs = Papers.objects.all()
     lines = []
+    c.drawImage("static/img/header.jpg",15,720, width = 650, height = 40)
     header = ['Paper ID','Paper Name','DOI','Paper Location']
     lines.append(header)
     for pdf in pdfs:
@@ -181,7 +208,7 @@ def papersreport(request):
                              ('FONTSIZE',(0,0),(-1,0),14),
                              ('BOTTOMPADDING',(0,0),(-1,0),12)]))
     f.wrapOn(c,10, 10)
-    f.drawOn(c, 50, 650)
+    f.drawOn(c, 50, 500)
     # c.showPage()
     c.save()
     buf.seek(0)

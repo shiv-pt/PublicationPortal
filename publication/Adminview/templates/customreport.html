@@ -18,20 +18,14 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <h2 style="padding: 10px;">Publisher Details</h2>
+        <h2 style="padding: 10px; text-align:center;">Publication Details</h2>
         <form method="post">
             {% csrf_token %}
-            Start Year:<select name="startyear" id="yearpicker" onchange="check()"></select><br>
-            End Year: <select name="endyear" id="yearpicker1" onchange="check()"></select><br>
-            <label for="filter">Filter:</label>
-            <input name="scopus" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True">
-            <label class="form-check-label" for="inlineCheckbox1">Scopus Indexed</label>
-            <input name="doi" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True">
-            <label class="form-check-label" for="inlineCheckbox1">DOI</label>
-            <input name="wos" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True">
-            <label class="form-check-label" for="inlineCheckbox1">WOS</label>
-            <button type="submit" href="{% url 'customReport' %}" >Generate report</button>
-            
+            <pre >Start Year:<select name="startyear" id="yearpicker" onchange="check()"></select>    End Year: <select name="endyear" id="yearpicker1" onchange="check()"></select></pre>
+            <br/>
+            <label for="filter">Filters:</label>
+            <pre><input style=""name="scopus" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True"><label class="form-check-label" for="inlineCheckbox1"> Scopus Indexed   </label><input name="doi" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True"><label class="form-check-label" for="inlineCheckbox1"> DOI   </label><input name="wos" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True"><label class="form-check-label" for="inlineCheckbox1"> WOS</label></pre>
+            <button type="submit" href="{% url 'customReport' %}" >Generate report</button>            
         </form>
         <hr/>
     </div>

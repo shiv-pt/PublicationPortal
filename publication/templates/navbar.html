@@ -40,8 +40,15 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="login-span" href="/">Home</a></li>
-                    <li><a class="login-span" href="{% url 'chartView' %}">Static Report</a></li>
-                    <li><a class="login-span" href="{% url 'customReport' %}">Custom Report</a></li>
+                    <li><a class="login-span" href="{% url 'chartView' %}">Static Reports</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle login-span" data-toggle="dropdown" href="#">Custom Reports
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a class="login-span" href="{% url 'customReport' %}">Publication</a></li>
+                              <li><a class="login-span" href="{% url 'customPub' %}">Publisher</a></li>
+                            </ul>
+                    </li>
                     <li><a class="login-span" href="{% url 'addressissues' %}">Address issues</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
