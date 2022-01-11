@@ -1,0 +1,63 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h2 style="padding: 10px; text-align:center;">Choose Publisher</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input list="publisher" name="publisher">
+            <datalist id="publisher">
+                {% for p in pub%}
+              <option value="{{p.SAP_ID}} - {{p.FIRST_NAME}} {{p.MIDDLE_NAME}} {{p.LAST_NAME}}">
+              {% endfor %}
+            </datalist>
+            <button type="submit" href="{% url 'customPub' %}" >Generate report</button> 
+          </form>
+        <hr/>
+    </div>
+    <div id="query" class="row">
+        
+        {% if date %}
+        <h3 style="text-align: center">Papers uploaded by {{author}}</h3>
+        {% else %}
+        <h2 style="text-align: center">All papers</h2>
+        {% endif %}
+        <br/>
+        <table class="table" style="margin:20px; right:20px;">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Published in</th>
+                    <th>Year</th>
+                    <th>Month</th>
+                    <th>Scopus</th>
+                    <th>WOS</th>
+                    <th>DOI</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in data %}
+                <tr>
+                    <td>{{ p.title }}</td>
+                    <td>{{ p.PUB_TYPE }} - {{p.NAME}}</td>
+                    <td>{{ p.PUB_YEAR }}</td>
+                    <td>{{ p.MONTH }}</td>
+                    <td>{{ p.SCOPUS_INDEX }}</td>
+                    <td>{{ p.WEB_OF_SCIENCE }}</td>
+                    <td>{{ p.doi }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if data|length > 0 %}
+        {% csrf_token %}
+        <a style="margin-left:10px;" href={% url 'customPDF' %} class="btn btn-default" role="button">Download Report</a>
+        {% endif %}
+    </div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+</script>
+
+{% endblock %}

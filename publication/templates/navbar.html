@@ -1,8 +1,9 @@
+{% load static %}
 <header class="headerWarp" role="banner" style="width: 100%;">
     <div class="brandInner" style="width: 100%; margin:0px">
         <div class="logo">
             <a href="/" title="Home" rel="home" class="site-logo"><img style="height: 7rem;"
-                    src="https://scontent.fblr4-3.fna.fbcdn.net/v/t1.6435-9/87503689_111002383835295_3256861726187978752_n.png?_nc_cat=108&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=joJoEuK2r7UAX-K5KK3&_nc_ht=scontent.fblr4-3.fna&oh=acac6bab4aed6333fb3268f1823145e0&oe=61D6BA2C"
+                src="{% static 'img/rvce_logo.jpg' %}"
                     alt="Home" /></a>
         </div>
         <div class="brandName">
@@ -39,8 +40,15 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="login-span" href="/">Home</a></li>
-                    <li><a class="login-span" href="{% url 'chartView' %}">Static Report</a></li>
-                    <li><a class="login-span" href="{% url 'customReport' %}">Custom Report</a></li>
+                    <li><a class="login-span" href="{% url 'chartView' %}">Static Reports</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle login-span" data-toggle="dropdown" href="#">Custom Reports
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a class="login-span" href="{% url 'customReport' %}">Publication</a></li>
+                              <li><a class="login-span" href="{% url 'customPub' %}">Publisher</a></li>
+                            </ul>
+                    </li>
                     <li><a class="login-span" href="{% url 'addressissues' %}">Address issues</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

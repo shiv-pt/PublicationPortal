@@ -11,7 +11,8 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Doi</th>
+                <th>Published in</th>
+                <th>Year</th>
                 <th>Details</th>
                 {% if request.user.is_authenticated %}
                 <th>Save</th>
@@ -22,11 +23,12 @@
             {% for p in pdfs %}
             <tr>
                 <td>{{ p.title }}</td>
-                <td style=" max-width: 25rem; overflow:hidden;">{{ p.doi }}</td>
+                <td>{{ p.PUB_TYPE }} - {{p.NAME}}</td>
+                <td>{{ p.PUB_YEAR }}</td>
                 <td><a href="{% url 'paperdetails' p.paper_id %}" name="paperdetails">Paper details</a>
                 </td>
                 {% if request.user.is_authenticated %}
-                <td><button class="btn"><i class="fa fa-bookmark-o"></i></button></td>
+                <td><button styclass="btn"><i class="fa fa-bookmark-o"></i></button></td>
                 {% endif %}
             </tr>
             {% endfor %}

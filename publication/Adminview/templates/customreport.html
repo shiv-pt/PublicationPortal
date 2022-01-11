@@ -18,20 +18,14 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <h2 style="padding: 10px;">Publisher Details</h2>
+        <h2 style="padding: 10px; text-align:center;">Publication Details</h2>
         <form method="post">
             {% csrf_token %}
-            Start Year:<select name="startyear" id="yearpicker" onchange="check()"></select><br>
-            End Year: <select name="endyear" id="yearpicker1" onchange="check()"></select><br>
-            <label for="filter">Filter:</label>
-            <input name="scopus" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True">
-            <label class="form-check-label" for="inlineCheckbox1">Scopus Indexed</label>
-            <input name="doi" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True">
-            <label class="form-check-label" for="inlineCheckbox1">DOI</label>
-            <input name="wos" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True">
-            <label class="form-check-label" for="inlineCheckbox1">WOS</label>
-            <button type="submit" href="{% url 'customReport' %}" >Generate report</button>
-            
+            <pre >Start Year:<select name="startyear" id="yearpicker" onchange="check()"></select>    End Year: <select name="endyear" id="yearpicker1" onchange="check()"></select></pre>
+            <br/>
+            <label for="filter">Filters:</label>
+            <pre><input style=""name="scopus" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True"><label class="form-check-label" for="inlineCheckbox1"> Scopus Indexed   </label><input name="doi" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True"><label class="form-check-label" for="inlineCheckbox1"> DOI   </label><input name="wos" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="True"><label class="form-check-label" for="inlineCheckbox1"> WOS</label></pre>
+            <button type="submit" href="{% url 'customReport' %}" >Generate report</button>            
         </form>
         <hr/>
     </div>
@@ -43,21 +37,25 @@
         <h2 style="text-align: center">Yearwise details of publications</h2>
         {% endif %}
         <br/>
-        <table class="table">
+        <table class="table" style="margin:20px; right:20px;">
             <thead>
                 <tr>
+                    <th>Title</th>
+                    <th>Published in</th>
                     <th>Year</th>
-                    <th>Name</th>
+                    <th>Month</th>
                     <th>Scopus</th>
-                    <th>Web of Science</th>
+                    <th>WOS</th>
                     <th>DOI</th>
                 </tr>
             </thead>
             <tbody>
                 {% for p in data %}
                 <tr>
+                    <td>{{ p.title }}</td>
+                    <td>{{ p.PUB_TYPE }} - {{p.NAME}}</td>
                     <td>{{ p.PUB_YEAR }}</td>
-                    <td>{{ p.NAME }}</td>
+                    <td>{{ p.MONTH }}</td>
                     <td>{{ p.SCOPUS_INDEX }}</td>
                     <td>{{ p.WEB_OF_SCIENCE }}</td>
                     <td>{{ p.doi }}</td>
@@ -66,7 +64,8 @@
             </tbody>
         </table>
         {% if data|length > 0 %}
-        <a style="margin-left:10px;" href="{% url 'PapersReport' %}" class="btn btn-default" role="button">Download Report</a>
+        {% csrf_token %}
+        <a style="margin-left:10px;" href={% url 'customPDF' %} class="btn btn-default" role="button">Download Report</a>
         {% endif %}
     </div>
 </div>
@@ -88,8 +87,7 @@
             $('#yearpicker1').val('');
         }
     }
-
-
+    
 </script>
 
 
