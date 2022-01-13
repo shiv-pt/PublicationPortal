@@ -6,7 +6,7 @@
         <h2 style="padding: 10px; text-align:center;">Choose Publisher</h2>
         <form method="post">
             {% csrf_token %}
-            <input list="publisher" name="publisher">
+            <input style="cursor: pointer;" required list="publisher" name="publisher" placeholder="Select Publisher">
             <datalist id="publisher">
                 {% for p in pub%}
               <option value="{{p.SAP_ID}} - {{p.FIRST_NAME}} {{p.MIDDLE_NAME}} {{p.LAST_NAME}}">
@@ -18,8 +18,8 @@
     </div>
     <div id="query" class="row">
         
-        {% if date %}
-        <h3 style="text-align: center">Papers uploaded by {{author}}</h3>
+        {% if name %}
+        <h3 style="text-align: center">Papers uploaded by {{ name.name }}</h3>
         {% else %}
         <h2 style="text-align: center">All papers</h2>
         {% endif %}

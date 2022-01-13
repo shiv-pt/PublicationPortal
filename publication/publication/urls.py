@@ -63,6 +63,8 @@ urlpatterns = [
     path('customReport/',admin_views.customReport, name="customReport"),
     path('customPDF/',admin_views.customPDF, name="customPDF"),
     path('customPub/',admin_views.customPub, name="customPub"),
+    path('download_pdf/<int:paperid>', views.download_pdf, name='download_pdf'),
+    path('edit_profile/', user_views.edit_profile, name="edit_profile"),
 ]
 
 if settings.DEBUG:

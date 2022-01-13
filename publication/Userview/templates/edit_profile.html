@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Edit Profile</h2>
+    <form action="/edit_profile/" method="post">
+        {% csrf_token %}
+        EMAIL: <input required type="text" name="email" value="{{ details.EMAIL }}"><br>
+        {% if msg %}
+        <p class="alert alert-danger">{{msg.msg}}</p>
+        {% endif %}
+
+        DEPARTMENT: <input required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" required type="text" name="department" value="{{ details.DEPARTMENT }}"><br>
+        <label for="">TITLE:</label>
+        <select required name="title">
+            <option value="Mr">Mr</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Dr">Dr</option>
+            <option value="Prof">Prof</option>
+            <option value="As. Prof">As. Prof</option>
+        </select>
+        <br>
+        FIRST NAME: <input required type="text" name="first_name" value="{{ details.FIRST_NAME }}"><br>
+        MIDDLE NAME: <input pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="middle_name" value="{{ details.MIDDLE_NAME }}"><br>
+        LAST NAME: <input required type="text" name="last_name" value="{{ details.LAST_NAME }}"><br>
+        PHONE NUMBER: <input pattern="[6789][0-9]{9}" required type="text" name="phone_number" value="{{ details.PHONE_NUMBER }}"><br>
+        <label for="">ROLE</label>
+        <select required name="role">
+            <option value="Teacher">Teacher</option>
+            <option value="Student" >Student</option>
+        </select><br>
+        DATE OF JOINING: <input required type="date" name="date_of_joining" value="02/11/2019"><br>
+        <br>
+        SCOPUS_ID: <input type="text" name="scopus_id" value="{{ details.SCOPUS_ID }}"><br>
+        PUBLON_ID: <input type="text" name="publon_id" value="{{ details.PUBLON_ID }}"><br>
+        H-INDEX: <input type="number" name="h_index" value="{{ details.H_INDEX }}"><br>
+        I-INDEX: <input type="number" name="i_index" value="{{ details.I_INDEX }}"><br>
+        ORCHID-ID: <input type="text" name="orchid_id" value="{{ details.ORCHID }}"><br>
+
+        <button class="btn btn-success" type="submit">Save Changes</button>
+
+    </form>
+</div>
+
+{% endblock %}

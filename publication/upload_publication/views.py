@@ -6,11 +6,16 @@ from upload_publication.models import Reference
 from upload_publication.models import Papers
 from django.core.files.storage import FileSystemStorage
 
+
+def paperwebscrap(title):
+    a=title
+
 def upload(request):
     if request.user.is_authenticated==False:
         return redirect('/login/')
     if request.method=='POST':
-        
+
+        paperwebscrap(request.POST.get('title'))
         paper = {'title': request.POST.get('title'), 'doi': request.POST.get('doi')}
         return render(request, 'upload_publication/paper_references.html', {'paper': paper})
     return render(request, 'upload_publication/upload.html')

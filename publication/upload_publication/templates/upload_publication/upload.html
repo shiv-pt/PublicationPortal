@@ -6,8 +6,8 @@
     <h2>Enter your publication details:</h2><br>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    Paper Title: <input required type="text" name="title" id=""><br>
-    DOI: <input type="text" name="doi" id="" value="" ><br>
+    Paper Title: <input style="width: 100%;" required type="text" name="title" id=""><br>
+    DOI: <input style="width: 100%;" type="text" name="doi" id="" value="" ><br>
     <button class="btn btn-primary btn-lg active btn-block" type="submit">Next</button>
 </form>
 </div>

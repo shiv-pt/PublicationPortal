@@ -25,9 +25,10 @@ def customPub(request):
             'SELECT * FROM PUBLISHER P, publisher_paper Q, PAPER R, REFERENCE S WHERE P.SAP_ID=Q.publisher_id AND Q.papers_id=R.paper_id AND R.paper_id=S.paper_id AND P.SAP_ID=%s',[id])
         data1 = Reference.objects.raw('SELECT * FROM PUBLISHER P, publisher_paper Q, PAPER R, REFERENCE S WHERE P.SAP_ID=Q.publisher_id AND Q.papers_id=R.paper_id AND R.paper_id=S.paper_id AND P.SAP_ID=%s',[id])
         pub = Publisher.objects.all()
+        name={"name":input[13:]}
         request.session['mycache'] = serializers.serialize('json', data)
         request.session['mycache1'] = serializers.serialize('json', data1)
-        return render(request, 'custompub.html', {"pub": pub, "data": data})
+        return render(request, 'custompub.html', {"pub": pub, "data": data,"name":name})
     pub = Publisher.objects.all()
     data = Papers.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
     data1 = Reference.objects.raw('SELECT * FROM paper P, reference R WHERE P.PAPER_ID = R.PAPER_ID ORDER BY R.PUB_YEAR')
