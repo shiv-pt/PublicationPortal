@@ -65,6 +65,7 @@ urlpatterns = [
     path('customPub/',admin_views.customPub, name="customPub"),
     path('download_pdf/<int:paperid>', views.download_pdf, name='download_pdf'),
     path('edit_profile/', user_views.edit_profile, name="edit_profile"),
+    path('publication/<int:year1>/<int:year2>/', views.sendpaper, name="sendpaper"),
 ]
 
 if settings.DEBUG:

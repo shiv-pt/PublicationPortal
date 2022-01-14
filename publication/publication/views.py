@@ -7,6 +7,7 @@ import os
 from wsgiref.util import FileWrapper
 import urllib
 import mimetypes
+from django.http import JsonResponse
 
 def showpdf(request):
     pdfs = Papers.objects.raw('SELECT * FROM PAPER P, REFERENCE R WHERE P.paper_id = R.paper_id')
@@ -51,3 +52,31 @@ def download_pdf(request, paperid):
     response['Content-Length'] = os.path.getsize(filepath)
     response['Content-Disposition'] = "attachment; filename=%s" % name
     return response
+
+
+def sendpaper(request,year1,year2):
+    papers=Papers.objects.raw('SELECT * FROM PAPER P, REFERENCE R, authors A WHERE A.PAPER_ID_id = P.paper_id AND P.paper_id = R.paper_id AND R.PUB_YEAR BETWEEN %s AND %s',[year1,year2])
+    print(papers)
+    data=[]
+    i=0
+    while i<len(papers):
+        print(i)
+        id=papers[i].paper_id
+        ind=id
+        authors=[]
+        authors.append(papers[i].A_NAME)
+        i=i+1
+        while i<len(papers) and id==papers[i].paper_id:
+            authors.append(papers[i].A_NAME)
+            id = papers[i].paper_id
+            i=i+1
+        print(i)
+        print()
+        datajson={'Title':papers[i-1].title,'Year':papers[i-1].PUB_YEAR,'Month':papers[i-1].MONTH,'Level':papers[i-1].LVL,'Volume':papers[i-1].VOL,'Pages':papers[i-1].PGNO,'DOI':papers[i-1].doi,'Issue':papers[i-1].ISSUE,'ISSN':papers[i-1].ISSN,'ISSN_TYPE':papers[i-1].ISSN_TYPE,'Publication Type':papers[i-1].PUB_TYPE,'Scopus Index':papers[i-1].SCOPUS_INDEX,'Web of Science':papers[i-1].WEB_OF_SCIENCE,'Ranking':papers[i-1].RANKING,'Authors':authors}
+        print(datajson)
+        data.append(datajson) 
+
+    return JsonResponse(data,safe=False)
+
+
+

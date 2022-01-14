@@ -16,7 +16,7 @@
 }
 
 .login-span:hover{
-    color: black;
+    color: white;
 }
 .heading:hover{
     color: rgb(218, 216, 216)
@@ -24,4 +24,8 @@
 
 .navbar-toggle .icon-bar{
     background-color: white;
+}
+
+.navbar-nav>li>a:hover{
+    background-color: #445e91;
 }

@@ -25,7 +25,7 @@
                 <td>{{ p.PUB_YEAR }}</td>
                 <td><a title="See more details" href="{% url 'paperdetails' p.paper_id %}" name="paperdetails">Paper details</a>
                 </td>
-                <td><button title="Download paper" styclass="btn"><a href="{% url 'download_pdf' p.paper_id %}" target="_blank"><i class="fa fa-download"></i></a></button></td>
+                <td><button title="Download paper" class="btn"><a href="{% url 'download_pdf' p.paper_id %}"><i class="fa fa-download"></i></a></button></td>
             </tr>
             {% endfor %}
             
@@ -38,10 +38,5 @@
         </tbody>
 
     </table>
-    <!--{% if request.user.is_superuser %}
-    <button><a href="{% url 'adminfeatures' %}">Admin Features</a></button>
-    {% elif request.user.is_authenticated %}
-    <button style="background-color: #27447E"><a class = "wh" href="{% url 'userfeatures' %}" >User features</a></button>
-    {% endif %}-->
 </div>
 {% endblock %}
