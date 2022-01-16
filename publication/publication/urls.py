@@ -66,6 +66,7 @@ urlpatterns = [
     path('download_pdf/<int:paperid>', views.download_pdf, name='download_pdf'),
     path('edit_profile/', user_views.edit_profile, name="edit_profile"),
     path('publication/<int:year1>/<int:year2>/', views.sendpaper, name="sendpaper"),
+    path('publication/<int:ident>/', views.senddetails, name="senddetails"),
 ]
 
 if settings.DEBUG:
