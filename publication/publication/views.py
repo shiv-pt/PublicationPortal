@@ -8,10 +8,14 @@ from wsgiref.util import FileWrapper
 import urllib
 import mimetypes
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 def showpdf(request):
     pdfs = Papers.objects.raw('SELECT * FROM PAPER P, REFERENCE R WHERE P.paper_id = R.paper_id')
-    return render(request, 'showpdf.html', {'pdfs': pdfs})
+    paginator = Paginator(pdfs, 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'showpdf.html', {'pdfs': page_obj})
 
 def userfeatures(request):
     if request.user.is_authenticated == False:
@@ -46,12 +50,15 @@ def download_pdf(request, paperid):
     filename=str(filename)
     name=filename[12:]
     filepath = os.path.join(fs.location, filename)
-    wrapper = FileWrapper(open(filepath, 'rb'))
-    content_type = mimetypes.guess_type(filepath)[0]
-    response = HttpResponse(wrapper, content_type=content_type)
-    response['Content-Length'] = os.path.getsize(filepath)
-    response['Content-Disposition'] = "attachment; filename=%s" % name
-    return response
+    try:
+        wrapper = FileWrapper(open(filepath, 'rb'))
+        content_type = mimetypes.guess_type(filepath)[0]
+        response = HttpResponse(wrapper, content_type=content_type)
+        response['Content-Length'] = os.path.getsize(filepath)
+        response['Content-Disposition'] = "attachment; filename=%s" % name
+        return response
+    except:
+        return HttpResponse("File not found")
 
 
 def sendpaper(request,year1,year2):

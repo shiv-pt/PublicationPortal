@@ -31,10 +31,12 @@ def paper_references(request):
             savepaper.doi=None
         else:
             savepaper.doi=doi   
-        pdf=request.FILES['pdf']
+        pdf = request.POST.get('pdf', False)
         if pdf=='':
+            print('jdf')
             savepaper.pdf=None
         else:
+            print('another')
             savepaper.pdf=pdf     
         savepaper.save()
         ISSN=request.POST.get('ISSN')

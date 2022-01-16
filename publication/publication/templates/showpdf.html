@@ -25,7 +25,11 @@
                 <td>{{ p.PUB_YEAR }}</td>
                 <td><a title="See more details" href="{% url 'paperdetails' p.paper_id %}" name="paperdetails">Paper details</a>
                 </td>
-                <td><button title="Download paper" class="btn"><a href="{% url 'download_pdf' p.paper_id %}"><i class="fa fa-download"></i></a></button></td>
+                {% if p.pdf != '' %}
+                <td><a style="border-color: black;border-width: 1px;" class="btn" href="{% url 'download_pdf' p.paper_id %}"><i class="fa fa-download"></i></a></td>
+                {% else %}
+                <td><button title="PDF not available" class="btn" disabled><i class="fa fa-download"></i></button></td>
+                {% endif %}
             </tr>
             {% endfor %}
             
@@ -38,5 +42,23 @@
         </tbody>
 
     </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if pdfs.has_previous %}
+            <a class="btn btn-danger" href="?page=1">&laquo; first</a>
+            <a class="btn btn-primary" href="?page={{ pdfs.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ pdfs.number }} of {{ pdfs.paginator.num_pages }}.
+            </span>
+    
+            {% if pdfs.has_next %}
+            <a class="btn btn-primary" href="?page={{ pdfs.next_page_number }}">next</a>
+            <a class="btn btn-danger" href="?page={{ pdfs.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </div>
-{% endblock %}
+
+{% endblock content %}

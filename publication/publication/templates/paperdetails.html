@@ -17,8 +17,11 @@
     <p>Volume: {{ paper.VOL }}</p>
     <p>Issue: {{ paper.ISSUE }}</p>
     <p>DOI: {{ paper.doi }}</p>
-    <a href="{{ paper.pdf.url }}" target="_blank">Open PDF</a>
+    {% if paper.pdf != '' %}
+    <a class="btn btn-primary" href="{{ paper.pdf.url }}" target="_blank">Open PDF</a>
+    {% endif %}
 
-<br><br>
+    <br><br>
+</div>
     
-{% endblock %}
+{% endblock content %}

@@ -6,6 +6,7 @@ from upload_publication.models import Papers
 from Userview.models import Publisher
 from datetime import date
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 
 
@@ -14,8 +15,10 @@ def yourPub(request):
     userid = request.user.username
     print(userid)
     pdfs = Papers.objects.raw("SELECT * FROM PUBLISHER P, PUBLISHER_PAPER Q, PAPER R WHERE P.SAP_ID = Q.PUBLISHER_ID AND Q.PAPERS_ID = R.PAPER_ID AND P.SAP_ID = %s",[userid])
-    print(pdfs)
-    return render(request, 'showpdf.html', {'pdfs': pdfs,'type':'yourPub'})
+    paginator = Paginator(pdfs, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'showpdf.html', {'pdfs': page_obj,'type':'yourPub'})
 
 def profile(request):
     userid = request.user.username
@@ -42,7 +45,10 @@ def issue(request):
 def issuestatus(request):
     userid=request.user.username
     issues=Issue.objects.raw("SELECT * FROM ISSUE I, PUBLISHER P WHERE I.PUB_ID_id = P.SAP_ID AND P.SAP_ID = %s",[userid])
-    return render(request, 'issuestatus.html', {'issues': issues})
+    paginator = Paginator(issues, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'issuestatus.html', {'issues': page_obj})
 
 def issue_delete(request,id):
     print(id)

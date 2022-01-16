@@ -14,6 +14,7 @@ from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from django.db import connection
 from django.core import serializers
+from django.core.paginator import Paginator
 # Create your views here.
 
 def customPub(request):
@@ -167,6 +168,9 @@ def issue_status(request,id,act):
     
 def address_issues(request):
     issues = Issue.objects.all()
+    paginator = Paginator(issues, 10)
+    page = request.GET.get('page')
+    issues = paginator.get_page(page)
     return render(request, 'address.html', {'issues': issues})
 
 class chartView(TemplateView):
