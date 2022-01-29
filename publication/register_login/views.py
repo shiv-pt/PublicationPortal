@@ -46,7 +46,16 @@ def userLogin(request):
             msg={'msg':'User does not exist'}
             print(msg)
             return render(request, 'register_login/login_register.html', {"page": page,"msg": msg})
+        if username=='Admin':
+            user = authenticate(username=username, password=password)
+            print(user)
+            if user is None:
+                msg = {'msg': 'Invalid Credentials'}
+                print(msg)
+                return render(request, 'register_login/login_register.html', {'page': page, 'msg': msg})
 
+            login(request, user)
+            return redirect('/')
         profile_obj = Profile.objects.filter(user = user_ob).first()
         if not profile_obj.is_verified:
             msg={'msg':'Profile not verified, check your mail'}

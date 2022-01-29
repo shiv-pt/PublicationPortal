@@ -26,7 +26,7 @@
                 <td><a title="See more details" href="{% url 'paperdetails' p.paper_id %}" name="paperdetails">Paper details</a>
                 </td>
                 {% if p.pdf != '' %}
-                <td><a style="border-color: black;border-width: 1px;" class="btn" href="{% url 'download_pdf' p.paper_id %}"><i class="fa fa-download"></i></a></td>
+                <td><a title="Download PDF" style="border-color: black;border-width: 1px;" class="btn" href="{% url 'download_pdf' p.paper_id %}"><i class="fa fa-download"></i></a></td>
                 {% else %}
                 <td><button title="PDF not available" class="btn" disabled><i class="fa fa-download"></i></button></td>
                 {% endif %}

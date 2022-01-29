@@ -71,6 +71,7 @@ urlpatterns = [
     path('error/', register_views.error_page, name="error"),
     path('token/', register_views.token_send, name="token_send"),
     path('accounts/login/' , register_views.userLogin , name="login_attempt"),
+    path('searching/', views.searching, name="searching"),
 ]
 
 if settings.DEBUG:

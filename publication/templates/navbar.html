@@ -50,6 +50,13 @@
                             </ul>
                     </li>
                     <li><a class="login-span" href="{% url 'addressissues' %}">Address issues</a></li>
+                    <li>
+                        <form class="searchform" enctype="multipart/form-data" action="{% url 'searching' %}" method="POST">
+                            {% csrf_token %}
+                            <input class="searchinput" name="searchtext" type="text" placeholder="Search">
+                            <button class="searchbutton" type="submit" placeholder=""><span class="fa fa-search"></span></button>
+                        </form>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="login-span" href="{% url 'logout' %}"><span class="glyphicon glyphicon-user login-span"></span> Logout</a></li>
@@ -79,6 +86,13 @@
                               <li><a class="login-span" href="{% url 'issuestatus' %}">Ticket Status</a></li>
                             </ul>
                     </li>
+                    <li>
+                        <form class="searchform" enctype="multipart/form-data" action="{% url 'searching' %}" method="POST">
+                            {% csrf_token %}
+                            <input class="searchinput" name="searchtext" type="text" placeholder="Search">
+                            <button class="searchbutton" type="submit" placeholder=""><span class="fa fa-search"></span></button>
+                        </form>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="login-span" href="{% url 'logout' %}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
@@ -98,6 +112,13 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="login-span" href="/">Home</a></li>
                     <li><a class="login-span" href="{% url 'upload_publication' %}">Upload</a></li>
+                    <li>
+                        <form class="searchform" enctype="multipart/form-data" action="{% url 'searching' %}" method="POST">
+                            {% csrf_token %}
+                            <input class="searchinput" name="searchtext" type="text" placeholder="Search">
+                            <button class="searchbutton" type="submit" placeholder=""><span class="fa fa-search"></span></button>
+                        </form>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="login-span" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span> Login</a></li>

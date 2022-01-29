@@ -1,3 +1,28 @@
+
+.searchform{
+  background-color: #27447E;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.searchinput{
+  border: none;
+  padding: 7px;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.searchbutton{
+  background-color: whilte;
+  border: none;
+  color: black;
+  padding: 7px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
 .whole{
   min-height: 680px;
 
