@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import messages
 # from .models import Profile
+import uuid
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -15,6 +16,7 @@ import time
 
 import requests
 from Userview.models import Publisher
+from Userview.models import Profile
 from Userview.models import Pub_Details
 from Userview.models import Area_of_interest
 
@@ -45,6 +47,11 @@ def userLogin(request):
             print(msg)
             return render(request, 'register_login/login_register.html', {"page": page,"msg": msg})
 
+        profile_obj = Profile.objects.filter(user = user_ob).first()
+        if not profile_obj.is_verified:
+            msg={'msg':'Profile not verified, check your mail'}
+            return render(request, 'register_login/login_register.html', {"page": page,"msg": msg})
+        
         user = authenticate(username=username, password=password)
         print(user)
         if user is None:
@@ -168,7 +175,12 @@ def publisher_details(request):
                 user_ob = User.objects.create(username=username, email=email,first_name=first_name,last_name=last_name)
                 user_ob.set_password(password)
                 user_ob.save()
+                
             try:
+                auth_token = str(uuid.uuid4())
+                profile_obj = Profile.objects.create(user = user_ob , auth_token = auth_token)
+                profile_obj.save()
+                send_mail_after_registration(email , auth_token)
                 pub = Publisher(SAP_ID=sap_id, DEPARTMENT=department, FIRST_NAME=first_name, MIDDLE_NAME=middle_name,
                                 LAST_NAME=last_name, PHONE_NUMBER=phone_number, ROLE=role, DATE_OF_JOINING=date_of_joining, EMAIL=email)
                 print(pub)
@@ -191,12 +203,41 @@ def publisher_details(request):
                 aoi_ob = Area_of_interest(SAP_ID=pub, INTEREST=request.POST[prev])
                 aoi_ob.save()
                 print(aoi_ob)
-                login(request, user_ob)
-                return redirect('/')
+                #login(request, user_ob)
+                return redirect('/token')
             except Exception as e:
                 print(e)
                 return redirect('/')
         except Exception as e:
             print(e)
 
+def send_mail_after_registration(email , token):
+    subject = 'Your accounts need to be verified'
+    message = f'Hi paste the link to verify your account http://127.0.0.1:8000/verify/{token}'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+    send_mail(subject, message , email_from ,recipient_list )
 
+def verify(request , auth_token):
+    try:
+        profile_obj = Profile.objects.filter(auth_token = auth_token).first()
+        if profile_obj:
+            if profile_obj.is_verified:
+                messages.success(request, 'Your account is already verified.')
+                return redirect('/accounts/login')
+            profile_obj.is_verified = True
+            profile_obj.save()
+            messages.success(request, 'Your account has been verified.')
+            return redirect('/accounts/login')
+        else:
+            return redirect('/error')
+    except Exception as e:
+        print(e)
+        return redirect('/')
+
+def error_page(request):
+    return  render(request , 'error.html')
+
+
+def token_send(request):
+    return render(request , 'token.html')

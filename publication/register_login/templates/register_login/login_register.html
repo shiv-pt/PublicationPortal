@@ -7,6 +7,15 @@
 
 <div class="container" id="container">
     <div class="form-container sign-up-container">
+        {% if messages %}
+
+            {% for message in messages %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+            {% endfor %}
+      
+        {% endif %}
         <form method="post" action="/register/">
             {% csrf_token %}
             <h3>Create Account</h3>
