@@ -67,6 +67,10 @@ urlpatterns = [
     path('edit_profile/', user_views.edit_profile, name="edit_profile"),
     path('publication/<int:year1>/<int:year2>/', views.sendpaper, name="sendpaper"),
     path('publication/<int:ident>/', views.senddetails, name="senddetails"),
+    path('verify/<auth_token>', register_views.verify, name="verify"),
+    path('error/', register_views.error_page, name="error"),
+    path('token/', register_views.token_send, name="token_send"),
+    path('accounts/login/' , register_views.userLogin , name="login_attempt"),
 ]
 
 if settings.DEBUG:
