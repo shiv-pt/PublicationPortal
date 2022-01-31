@@ -44,16 +44,16 @@ def customPDF(request):
     data1 = list(serializers.deserialize("json",request.session.get('mycache1')))
     print(data)
     buf = io.BytesIO()
-    c = canvas.Canvas(buf,pagesize=letter)
+    c = canvas.Canvas(buf,pagesize=letter,bottomup=0)
     c.setFont("Helvetica",25)
     c.setTitle("Custom Report")
-    c.drawString(230,680,"Generated Report")
+    c.drawString(220,100,"Generated Report")
     textob = c.beginText()
     textob.setTextOrigin(inch,inch)
     textob.setFont("Helvetica",10)
     textob.textLine("All uploaded papers")
     lines = []
-    c.drawImage("static/img/header.jpg",15,720, width = 650, height = 40)
+    c.drawImage("static/img/header.jpg",10,10, width = 650, height = 40)
     header = ['Title', 'DOI','Published in', 'Year','Month', 'Scopus', 'WOS']
     lines.append(header)
     for pdf in data:
@@ -69,15 +69,19 @@ def customPDF(request):
                 line.append(p.object.MONTH)
                 line.append(p.object.SCOPUS_INDEX)
                 line.append(p.object.WEB_OF_SCIENCE)
-        lines.append(line)
-    f = Table(lines,colWidths=[150,40,150,35,55,50,50])
-    f.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.gray),
-                            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-                            ('ALIGN',(0,0),(-1,-1),'CENTER'),
-                            ('FONTSIZE',(0,0),(-1,0),14),
-                            ('BOTTOMPADDING',(0,0),(-1,0),12)]))
+        lines = [line] + lines
+    f = Table(lines,colWidths=[150,40,150,35,55,62,62])
+    f.setStyle(TableStyle([('BACKGROUND', (0, -1), (-1, -1), colors.gray),
+                             #('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                             ('ALIGN',(0,0),(-1,-1),'CENTER'),
+                             ('FONTSIZE',(0,-1),(-1,-1),14),
+                             #('TOPPADDING',(0, 0), (-1, 0),30)
+                             ('BOTTOMPADDING',(0,-1),(-1,-1),20),
+                             #('TOPPADDING',(0,-2),(-1,0),12),
+                             ('BOTTOMPADDING',(0,0),(-1,-1),20)
+                            ]))
     f.wrapOn(c,10, 10)
-    f.drawOn(c, 50, 480)
+    f.drawOn(c, 27, 120)
     # c.showPage()
     c.save()
     buf.seek(0)
@@ -186,34 +190,38 @@ class chartView(TemplateView):
 
 def papersreport(request):
     buf = io.BytesIO()
-    c = canvas.Canvas(buf,pagesize=letter)
+    c = canvas.Canvas(buf,pagesize=letter,bottomup=0)
     c.setFont("Helvetica",25)
     c.setTitle("All Papers")
-    c.drawString(230,680,"Generated Report")
+    c.drawString(220,100,"Generated Report")
     textob = c.beginText()
     textob.setTextOrigin(inch,inch)
     textob.setFont("Helvetica",14)
     textob.textLine("All uploaded papers")
     pdfs = Papers.objects.all()
     lines = []
-    c.drawImage("static/img/header.jpg",15,720, width = 650, height = 40)
+    c.drawImage("static/img/header.jpg",10,10, width = 650, height = 40)
     header = ['Paper ID','Paper Name','DOI','Paper Location']
     lines.append(header)
-    for pdf in pdfs:
+    for pdf in (pdfs):
         line = []
         line.append(str(pdf.paper_id))
         line.append(pdf.title)
         line.append(pdf.doi)
         line.append(str(pdf.pdf))
-        lines.append(line)
+        lines = [line] + lines
     f = Table(lines)
-    f.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.gray),
-                             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+    f.setStyle(TableStyle([('BACKGROUND', (0, -1), (-1, -1), colors.gray),
+                             #('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
                              ('ALIGN',(0,0),(-1,-1),'CENTER'),
-                             ('FONTSIZE',(0,0),(-1,0),14),
-                             ('BOTTOMPADDING',(0,0),(-1,0),12)]))
+                             ('FONTSIZE',(0,-1),(-1,-1),14),
+                             #('TOPPADDING',(0, 0), (-1, 0),30)
+                             ('BOTTOMPADDING',(0,-1),(-1,-1),20),
+                             #('TOPPADDING',(0,-2),(-1,0),12),
+                             ('BOTTOMPADDING',(0,0),(-1,-1),20)
+                            ]))
     f.wrapOn(c,10, 10)
-    f.drawOn(c, 50, 500)
+    f.drawOn(c, 145, 120)
     # c.showPage()
     c.save()
     buf.seek(0)

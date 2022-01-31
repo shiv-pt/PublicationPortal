@@ -9,7 +9,7 @@
             data: {
                 labels: [{% for item in is %}'{{ item.ISSUE_STATUS }}',{% endfor %}],
                 datasets: [{
-                    label: '# of Votes',
+                    label: 'Number of issues',
                     data: [{%for item in is%}{{ item.CNT }},{% endfor %}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
