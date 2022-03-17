@@ -31,7 +31,7 @@ def paper_references(request):
             savepaper.doi=None
         else:
             savepaper.doi=doi   
-        pdf = request.POST.get('pdf', False)
+        pdf = request.FILES['pdf']
         if pdf=='':
             print('jdf')
             savepaper.pdf=None

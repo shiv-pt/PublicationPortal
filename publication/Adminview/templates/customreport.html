@@ -29,7 +29,7 @@
         </form>
         <hr/>
     </div>
-    <div id="query" class="row">
+    <div id="query" >
         
         {% if date %}
         <h3 style="text-align: center">Details of Papers from {{date.startyear}} and {{date.endyear}}</h3>
@@ -37,16 +37,17 @@
         <h2 style="text-align: center">Yearwise details of publications</h2>
         {% endif %}
         <br/>
-        <table class="table" style="margin:20px; right:20px;">
+        
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Published in</th>
-                    <th>Year</th>
-                    <th>Month</th>
-                    <th>Scopus</th>
-                    <th>WOS</th>
-                    <th>DOI</th>
+                    <th >Title</th>
+                    <th >Published in</th>
+                    <th >Year</th>
+                    <!--<th>Month</th>-->
+                    <th >Scopus</th>
+                    <th >WOS</th>
+                    <th >DOI</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,7 +56,7 @@
                     <td>{{ p.title }}</td>
                     <td>{{ p.PUB_TYPE }} - {{p.NAME}}</td>
                     <td>{{ p.PUB_YEAR }}</td>
-                    <td>{{ p.MONTH }}</td>
+                   <!-- <td>{{ p.MONTH }}</td>-->
                     <td>{{ p.SCOPUS_INDEX }}</td>
                     <td>{{ p.WEB_OF_SCIENCE }}</td>
                     <td>{{ p.doi }}</td>
