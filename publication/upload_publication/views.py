@@ -30,14 +30,12 @@ def paper_references(request):
         if doi=='':
             savepaper.doi=None
         else:
-            savepaper.doi=doi   
-        pdf = request.FILES['pdf']
-        if pdf=='':
-            print('jdf')
+            savepaper.doi=doi  
+        try: 
+            pdf = request.FILES['pdf']
+            savepaper.pdf = pdf
+        except:
             savepaper.pdf=None
-        else:
-            print('another')
-            savepaper.pdf=pdf     
         savepaper.save()
         ISSN=request.POST.get('ISSN')
         ISSUE=request.POST.get('ISSUE')

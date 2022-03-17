@@ -14,7 +14,7 @@ from django.core.paginator import Paginator
 def yourPub(request):
     userid = request.user.username
     print(userid)
-    pdfs = Papers.objects.raw("SELECT * FROM PUBLISHER P, PUBLISHER_PAPER Q, PAPER R WHERE P.SAP_ID = Q.PUBLISHER_ID AND Q.PAPERS_ID = R.PAPER_ID AND P.SAP_ID = %s",[userid])
+    pdfs = Papers.objects.raw("SELECT * FROM PUBLISHER P, PUBLISHER_PAPER Q, PAPER R,REFERENCE S WHERE P.SAP_ID = Q.PUBLISHER_ID AND Q.PAPERS_ID = R.PAPER_ID AND R.paper_id=S.paper_id AND P.SAP_ID = %s",[userid])
     paginator = Paginator(pdfs, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -23,6 +23,7 @@ def yourPub(request):
 def profile(request):
     userid = request.user.username
     details = Publisher.objects.raw("SELECT * FROM PUBLISHER P, PUB_DETAILS Q WHERE P.SAP_ID = Q.PUBLISHER_ID AND P.SAP_ID= %s",[userid])
+    print(details)
     if(len(details)!=0):
         details=details[0]
         todays_date = date.today()

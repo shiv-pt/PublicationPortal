@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import bs4
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
@@ -158,10 +159,20 @@ def publisher_details(request):
         date_of_joining = request.POST['date_of_joining']
         email = request.POST['email']
         scopus_id = request.POST['scopus_id']
+        if scopus_id=='':
+            scopus_id=NULL
         publon_id = request.POST['publon_id']
+        if publon_id=='':
+            publon_id=NULL
         h_index = request.POST['h_index']
+        if h_index=='':
+            h_index=NULL
         i_index = request.POST['i_index']
+        if i_index=='':
+            i_index=NULL
         orchid_id = request.POST['orchid_id']
+        if orchid_id=='':
+            orchid_id=NULL
         password = request.POST['password']
         username=sap_id
         
@@ -209,9 +220,12 @@ def publisher_details(request):
                             print(aoi_ob)
                     except:
                         break
-                aoi_ob = Area_of_interest(SAP_ID=pub, INTEREST=request.POST[prev])
-                aoi_ob.save()
-                print(aoi_ob)
+                try:
+                    aoi_ob = Area_of_interest(SAP_ID=pub, INTEREST=request.POST[prev])
+                    aoi_ob.save()
+
+                except:
+                    pass
                 #login(request, user_ob)
                 return redirect('/token')
             except Exception as e:
