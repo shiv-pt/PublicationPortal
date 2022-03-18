@@ -11,7 +11,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_CENTER
 from django.db import connection
 from django.core import serializers
 from django.core.paginator import Paginator
@@ -39,6 +41,10 @@ def customPub(request):
 
 
 def customPDF(request):
+    styles = getSampleStyleSheet()
+    styleN = styles["Normal"]
+    styleN.alignment = TA_LEFT
+    ps = ParagraphStyle('title', fontSize=20, leading=24)
     print(request.session.get('mycache'))
     data = list(serializers.deserialize("json",request.session.get('mycache')))
     data1 = list(serializers.deserialize("json",request.session.get('mycache1')))
@@ -59,14 +65,14 @@ def customPDF(request):
     for pdf in data:
         print("pdf", pdf.object.paper_id)
         line = []
-        line.append(pdf.object.title)
+        line.append(Paragraph(pdf.object.title,styleN))
         line.append(pdf.object.doi)
         for p in data1:
             print("p", p.object.paper_id)
             if(pdf.object.paper_id == p.object.paper_id):
-                line.append(p.object.PUB_TYPE +" - \n "+ p.object.NAME)
+                line.append(Paragraph(p.object.PUB_TYPE +" - \n "+ p.object.NAME,styleN))
                 line.append(p.object.PUB_YEAR)
-                line.append(p.object.MONTH)
+                line.append(Paragraph(p.object.MONTH,styleN))
                 line.append(p.object.SCOPUS_INDEX)
                 line.append(p.object.WEB_OF_SCIENCE)
         lines = [line] + lines
@@ -78,7 +84,8 @@ def customPDF(request):
                              #('TOPPADDING',(0, 0), (-1, 0),30)
                              ('BOTTOMPADDING',(0,-1),(-1,-1),20),
                              #('TOPPADDING',(0,-2),(-1,0),12),
-                             ('BOTTOMPADDING',(0,0),(-1,-1),20)
+                             ('BOTTOMPADDING',(0,0),(-1,-1),20),
+                             #('GRID',(0,0),(-1,-1),1,colors.blue)
                             ]))
     f.wrapOn(c,10, 10)
     f.drawOn(c, 27, 120)
@@ -189,6 +196,9 @@ class chartView(TemplateView):
     
 
 def papersreport(request):
+    styles = getSampleStyleSheet()
+    styleN = styles["Normal"]
+    styleN.alignment = TA_LEFT
     buf = io.BytesIO()
     c = canvas.Canvas(buf,pagesize=letter,bottomup=0)
     c.setFont("Helvetica",25)
@@ -206,7 +216,7 @@ def papersreport(request):
     for pdf in (pdfs):
         line = []
         line.append(str(pdf.paper_id))
-        line.append(pdf.title)
+        line.append(Paragraph(pdf.title,styleN))
         line.append(pdf.doi)
         line.append(str(pdf.pdf))
         lines = [line] + lines

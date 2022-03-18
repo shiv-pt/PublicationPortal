@@ -25,7 +25,7 @@ class Reference(models.Model):
     SCOPUS_INDEX= models.CharField(max_length=50,blank=True, null=True)
     WEB_OF_SCIENCE = models.CharField(max_length=50,blank=True, null=True)
     RANKING=models.CharField(max_length=50,blank=True, null=True)
-    NAME = models.CharField(max_length=50)
+    NAME = models.CharField(max_length=150)
     paper=models.OneToOneField(Papers,on_delete=models.CASCADE,default=None)
 
     class Meta:
