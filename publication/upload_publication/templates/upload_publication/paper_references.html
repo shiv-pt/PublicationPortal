@@ -7,7 +7,7 @@
         {% csrf_token %}
         Paper Title: <input readonly type="text" name="title" value="{{ paper.title }}"><br>
         DOI: <input readonly type="text" name="doi" value="{{ paper.doi }}"><br>
-        ISSN: <input required type="text" name="ISSN" ><br>
+        ISSN *: <input required type="text" name="ISSN" ><br>
         ISSUE: <input type="text" name="ISSUE"><br>
         <label for="">MONTH</label>
         <select required name="MONTH" style="cursor:pointer;">
@@ -32,17 +32,17 @@
             <option value="international">International</option>
             <option value="national">National</option>
         </select><br><br>
-        ISSN TYPE: <input required type="text" name="ISSN_TYPE"><br><br>
+        ISSN TYPE*: <input required type="text" name="ISSN_TYPE"><br><br>
         <label for="">PUBLICATION TYPE</label>
         <select required name="PUB_TYPE" style="cursor:pointer;">
             <option value="Journal">Journal</option>
             <option value="Conference">Conference</option>
             <option value="Book">Book</option>
         </select><br><br>
-        PUBLICATION TYPE NAME: <input required type="text" name="NAME" placeholder="Journal/conference/book Name"><br>
+        PUBLICATION TYPE NAME*: <input required type="text" name="NAME" placeholder="Journal/conference/book Name"><br>
         SCOPUS INDEX: <input type="text" name="SCOPUS_INDEX"><br>
         WEB_OF_SCIENCE: <input type="text" name="WEB_OF_SCIENCE"><br>
-        <label for="">RANKING:</label>
+        <label for="">RANKING*:</label>
         <select required name="RANKING" style="cursor:pointer;">
             <option value="Q1">Q1</option>
             <option value="Q2">Q2</option>
