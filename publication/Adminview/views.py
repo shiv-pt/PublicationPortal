@@ -219,16 +219,16 @@ def papersreport(request):
     pdfs = Papers.objects.all()
     lines = []
     c.drawImage("static/img/header.jpg",10,10, width = 650, height = 40)
-    header = ['Paper ID','Paper Name','DOI','Paper Location']
+    header = ['Paper ID','Paper Name','DOI']
     lines.append(header)
     for pdf in (pdfs):
         line = []
         line.append(str(pdf.paper_id))
         line.append(Paragraph(pdf.title,styleN))
         line.append(pdf.doi)
-        line.append(str(pdf.pdf))
+        #line.append(str(pdf.pdf))
         lines = [line] + lines
-    f = Table(lines,colWidths=[60,270,50,180])
+    f = Table(lines,colWidths=[100,300,150])
     f.setStyle(TableStyle([('BACKGROUND', (0, -1), (-1, -1), colors.gray),
                              #('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
                              ('ALIGN',(0,0),(-1,-1),'CENTER'),
