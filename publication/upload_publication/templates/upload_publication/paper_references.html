@@ -5,11 +5,12 @@
     <h2>Paper References</h2>
     <form action="/paper_references/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        Paper Title: <input readonly type="text" name="title" value="{{ paper.title }}"><br>
+        <span>Fields marked as <span style="color: red;">*</span> are mandatory</span><br>
+        <span>PAPER TITLE <span style="color: red;">*</span></span> <input readonly type="text" name="title" value="{{ paper.title }}"><br>
         DOI: <input readonly type="text" name="doi" value="{{ paper.doi }}"><br>
-        ISSN *: <input required type="text" name="ISSN" ><br>
+        <span>ISSN <span style="color: red;">*</span></span><input required type="text" name="ISSN" ><br>
         ISSUE: <input type="text" name="ISSUE"><br>
-        <label for="">MONTH</label>
+        <label for=""><span>MONTH <span style="color: red;">*</span></span></label>
         <select required name="MONTH" style="cursor:pointer;">
             <option value="January">Jan</option>
             <option value="February">Feb</option>
@@ -24,25 +25,25 @@
             <option value="November">Nov</option>
             <option value="December">Dec</option>
         </select><br><br>
-        PUBLICATION YEAR: <select required name="PUB_YEAR" id="yearpicker"></select><br>
+        <span>PUBLICATION YEAR <span style="color: red;">*</span></span> <select required name="PUB_YEAR" id="yearpicker"></select><br>
         PAGE NO.: <input type="number" name="PGNO"><br>
         VOLUME: <input type="number" name="VOL"><br>
-        <label for="">LEVEL</label>
+        <label for=""><span>LEVEL <span style="color: red;">*</span></span></label>
         <select required name="LVL" style="cursor:pointer;">
             <option value="international">International</option>
             <option value="national">National</option>
         </select><br><br>
-        ISSN TYPE*: <input required type="text" name="ISSN_TYPE"><br><br>
-        <label for="">PUBLICATION TYPE</label>
+        <span>ISSN TYPE <span style="color: red;">*</span></span> <input required type="text" name="ISSN_TYPE"><br><br>
+        <label for=""><span>PUBLICATION TYPE <span style="color: red;">*</span></span></label>
         <select required name="PUB_TYPE" style="cursor:pointer;">
             <option value="Journal">Journal</option>
             <option value="Conference">Conference</option>
             <option value="Book">Book</option>
         </select><br><br>
-        PUBLICATION TYPE NAME*: <input required type="text" name="NAME" placeholder="Journal/conference/book Name"><br>
+        <span>PUBLICATION TYPE NAME <span style="color: red;">*</span></span> <input required type="text" name="NAME" placeholder="Journal/conference/book Name"><br>
         SCOPUS INDEX: <input type="text" name="SCOPUS_INDEX"><br>
         WEB_OF_SCIENCE: <input type="text" name="WEB_OF_SCIENCE"><br>
-        <label for="">RANKING*:</label>
+        <label for=""><span>RANKING<span style="color: red;">*</span></span></label>
         <select required name="RANKING" style="cursor:pointer;">
             <option value="Q1">Q1</option>
             <option value="Q2">Q2</option>

@@ -5,11 +5,11 @@
     <h2>Publisher Details</h2>
 <form action="/publisher_details/" method="post">
     {% csrf_token %}
-    SAP ID: <input readonly type="text" name="sap_id" value="{{ cred.username }}"><br>
-    PASSWORD: <input readonly type="password" name="password" value="{{ cred.password }}"><br>
-    EMAIL: <input readonly type="email" name="email" value="{{ cred.email }}"><br>
-    DEPARTMENT*: <input required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" required type="text" name="department" ><br>
-    <label for="">TITLE:</label>
+    <span>SAP ID <span style="color: red;">*</span></span> <input readonly type="text" name="sap_id" value="{{ cred.username }}"><br>
+    <span>PASSWORD <span style="color: red;">*</span></span> <input readonly type="password" name="password" value="{{ cred.password }}"><br>
+    <span>EMAIL <span style="color: red;">*</span></span> <input readonly type="email" name="email" value="{{ cred.email }}"><br>
+    <span>DEPARTMENT <span style="color: red;">*</span></span> <input required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" required type="text" name="department" ><br>
+    <label for=""><span>TITLE <span style="color: red;">*</span></span></label>
     <select required name="title">
         <option value="Mr">Mr</option>
         <option value="Mrs">Mrs</option>
@@ -17,16 +17,17 @@
         <option value="Dr">Dr</option>
         <option value="Prof">Prof</option>
         <option value="As. Prof">Assistant Prof</option>
-    FIRST NAME: <input readonly required type="text" name="first_name" value="{{ cred.first_name }}"><br>
+    </select><br>
+    <span>FIRST NAME <span style="color: red;">*</span></span> <input readonly required type="text" name="first_name" value="{{ cred.first_name }}"><br>
     MIDDLE NAME: <input pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="middle_name" ><br>
-    LAST NAME: <input readonly required type="text" name="last_name" value="{{ cred.last_name }}" ><br>
-    PHONE NUMBER*: <input pattern="[6789][0-9]{9}" required type="text" name="phone_number" ><br>
-    <label for="">ROLE</label>
+    <span>LAST NAME <span style="color: red;">*</span></span> <input readonly required type="text" name="last_name" value="{{ cred.last_name }}" ><br>
+    <span>PHONE NUMBER <span style="color: red;">*</span></span> <input pattern="[6789][0-9]{9}" required type="text" name="phone_number" ><br>
+    <label for=""><span>ROLE <span style="color: red;">*</span></span></label>
     <select required name="role">
         <option value="Teacher">Teacher</option>
         <option value="Student">Student</option>
     </select><br>
-    DATE OF JOINING*: <input required type="date" name="date_of_joining" ><br>
+    <span>DATE OF JOINING <span style="color: red;">*</span></span> <input required type="date" name="date_of_joining" ><br>
 
     <label for="">AREA OF INTEREST:</label><BR></BR>
     <div class="aoi">
