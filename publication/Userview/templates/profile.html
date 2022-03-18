@@ -2,9 +2,64 @@
 
 {% block content %}
 <div class="container">
-    
+
+    <img src="/static/images/user.png" class="card-img-top" alt="{{m.title}}"
+            style="border-radius: 50%; width: 180px;">
     <h1>{{ details.FIRST_NAME }} {{ details.MIDDLE_NAME }} {{ details.LAST_NAME }}</h1>
-    <p>SAP ID:   {{ details.SAP_ID }}</p>
+
+    <hr style="background-color: black;">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>SAP ID:</h3>
+            <p>{{ details.SAP_ID }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Department:</h3>
+            <p>{{ details.DEPARTMENT }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Phone no:</h3>
+            <p>{{ details.PHONE_NUMBER }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Email</h3>
+            <p>{{ details.EMAIL }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Experience:</h3>
+            <p>{{ details.DATE_OF_JOINING }} years</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Scopus ID:</h3>
+            <p>{{ details.SCOPUS_ID }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Publon ID:</h3>
+            <p>{{ details.PUBLON_ID }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>H-Index:</h3>
+            <p>{{ details.H_INDEX }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>i10-Index:</h3>
+            <p>{{ details.I_INDEX }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Orchid ID:</h3>
+            <p>{{ details.ORCHID }}</p>
+        </div>
+    </div>
+        
+    <!-- <p>SAP ID:   {{ details.SAP_ID }}</p>
     <p>Department:   {{ details.DEPARTMENT }}</p>
     <p>Role:   {{ details.ROLE }}</p>
     <p>Phone no:   {{ details.PHONE_NUMBER }}</p>
@@ -14,7 +69,7 @@
     <p>Publon ID:   {{ details.PUBLON_ID }}</p>
     <p>H-Index:   {{ details.H_INDEX }}</p>
     <p>i10-Index:   {{ details.I_INDEX }}</p>
-    <p>Orchid ID:   {{ details.ORCHID }}</p>
+    <p>Orchid ID:   {{ details.ORCHID }}</p> -->
     <br>
     <button class="btn btn-primary"><a style="color: white;" href="{% url 'edit_profile' %}">Edit Profile</a> </button>
 <br><br>

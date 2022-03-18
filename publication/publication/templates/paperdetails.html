@@ -2,9 +2,72 @@
 
 {% block content %}
 <div class="container" style="padding:30px">
-    <h1>Title of the paper: {{ paper.title }}</h1>
-    <h2>Authors: {{ paper.A_NAME }}</h3>
-    <p>Publication type: {{ paper.PUB_TYPE }}</p>
+
+    <h1>Title: {{ paper.title }}</h1>
+    <h2>{{ paper.A_NAME }}</h3>
+    <hr style="background-color: black">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Publication type:</h3>
+            <p>{{ paper.PUB_TYPE }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Level:</h3>
+            <p>{{ paper.LVL }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Name:</h3>
+            <p>{{ paper.NAME }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>ISSN type:</h3>
+            <p>{{ paper.ISSN_TYPE }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Month:</h3>
+            <p>{{ paper.MONTH }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Year:</h3>
+            <p>{{ paper.PUB_YEAR }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Scopus Index:</h3>
+            <p>{{ paper.SCOPUS_INDEX }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Web of science:</h3>
+            <p>{{ paper.WEB_OF_SCIENCE }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Page no:</h3>
+            <p>{{ paper.PGNO }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Volume:</h3>
+            <p>{{ paper.VOL }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>DOI:</h3>
+            <p>{{ paper.doi }}</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Issue:</h3>
+            <p>{{ paper.ISSUE }}</p>
+        </div>
+    </div><br>
+    
+    <!-- <p>Publication type: {{ paper.PUB_TYPE }}</p>
     <p>Level: {{ paper.LVL }}</p>
     <p>Name: {{ paper.NAME }}</p>
     <p>ISSN type: {{ paper.ISSN_TYPE }}</p>
@@ -16,7 +79,7 @@
     <p>Page no: {{ paper.PGNO }}</p>
     <p>Volume: {{ paper.VOL }}</p>
     <p>Issue: {{ paper.ISSUE }}</p>
-    <p>DOI: {{ paper.doi }}</p>
+    <p>DOI: {{ paper.doi }}</p> -->
     {% if paper.pdf != '' %}
     <a class="btn btn-primary" href="{{ paper.pdf.url }}" target="_blank">Open PDF</a>
     {% endif %}
