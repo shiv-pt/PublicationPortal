@@ -42,8 +42,14 @@ def customPub(request):
 
 def customPDF(request):
     styles = getSampleStyleSheet()
-    styleN = styles["Normal"]
-    styleN.alignment = TA_LEFT
+    styleN = ParagraphStyle(
+        name='Normal',
+        spaceAfter=0,
+        spaceBefore=0,
+        spaceShrinkage = 0.05,
+        borderPadding = 0
+    )
+    #styleN.alignment = TA_LEFT
     ps = ParagraphStyle('title', fontSize=20, leading=24)
     print(request.session.get('mycache'))
     data = list(serializers.deserialize("json",request.session.get('mycache')))
@@ -70,11 +76,12 @@ def customPDF(request):
         for p in data1:
             print("p", p.object.paper_id)
             if(pdf.object.paper_id == p.object.paper_id):
-                line.append(Paragraph(p.object.PUB_TYPE +" - \n "+ p.object.NAME,styleN))
+                line.append(Paragraph(p.object.PUB_TYPE +" - "+ p.object.NAME,styleN))
                 line.append(p.object.PUB_YEAR)
-                line.append(Paragraph(p.object.MONTH,styleN))
+                line.append(p.object.MONTH)
                 line.append(p.object.SCOPUS_INDEX)
                 line.append(p.object.WEB_OF_SCIENCE)
+        print(lines)
         lines = [line] + lines
     f = Table(lines,colWidths=[150,40,150,35,55,62,62])
     f.setStyle(TableStyle([('BACKGROUND', (0, -1), (-1, -1), colors.gray),
@@ -85,6 +92,7 @@ def customPDF(request):
                              ('BOTTOMPADDING',(0,-1),(-1,-1),20),
                              #('TOPPADDING',(0,-2),(-1,0),12),
                              ('BOTTOMPADDING',(0,0),(-1,-1),20),
+                             ('VALIGN',(0,0),(-1,-1),'TOP')
                              #('GRID',(0,0),(-1,-1),1,colors.blue)
                             ]))
     f.wrapOn(c,10, 10)
@@ -220,7 +228,7 @@ def papersreport(request):
         line.append(pdf.doi)
         line.append(str(pdf.pdf))
         lines = [line] + lines
-    f = Table(lines)
+    f = Table(lines,colWidths=[60,270,50,180])
     f.setStyle(TableStyle([('BACKGROUND', (0, -1), (-1, -1), colors.gray),
                              #('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
                              ('ALIGN',(0,0),(-1,-1),'CENTER'),
@@ -228,10 +236,12 @@ def papersreport(request):
                              #('TOPPADDING',(0, 0), (-1, 0),30)
                              ('BOTTOMPADDING',(0,-1),(-1,-1),20),
                              #('TOPPADDING',(0,-2),(-1,0),12),
-                             ('BOTTOMPADDING',(0,0),(-1,-1),20)
+                             ('BOTTOMPADDING',(0,0),(-1,-1),20),
+                             ('VALIGN',(0,0),(-1,-1),'TOP'),
+                             #('GRID',(0,0),(-1,-1),1,colors.blue)
                             ]))
     f.wrapOn(c,10, 10)
-    f.drawOn(c, 145, 120)
+    f.drawOn(c, 27, 120)
     # c.showPage()
     c.save()
     buf.seek(0)
